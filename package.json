@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "author": "",
+  "author": "Edwin Hared Albancando Robles",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
