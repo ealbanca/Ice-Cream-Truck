@@ -1,0 +1,30 @@
+/* Media Query for Larger Viewer */
+@media (min-width: 800px) {
+
+    /* Navigation Styles */
+    .siteName a{
+    font-size: 3vw;
+    }
+    #tools a { 
+    font-size: 1.5vw;
+    }
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
+    gap: 2rem;
+    max-width: 90vw;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.featured-icecreams img{
+    width: 100%;
+    height: 30vw;
+    border-radius: 1vw;
+}
+
+footer{
+    font-size:1vw ;
+}
+}

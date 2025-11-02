@@ -58,6 +58,7 @@ nav{
   flex: 1;
   justify-content: center;
   color: var(--color-primary);
+  height: 4vw;
 
 }
 nav ul{
@@ -67,9 +68,10 @@ nav ul{
   padding: 0;
   justify-content: center;
   align-items: center; 
-  font-family: var(--font-body);
+  font-family: var(--font-headline);
   color: white;
   font-size: var(--font-size-medium);
+  font-weight: bold;
 }
 
 /* Remove underline from navigation links */
@@ -87,4 +89,103 @@ nav a:focus {
 nav a:hover {
   text-decoration: none;
   color: var(--color-tertiary);
+}
+
+/*Index Page Styles*/
+
+.hero {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+.hero img {
+  width: 100%;
+  height: auto;
+  max-height: 40vw;
+  object-fit: cover;
+}
+
+.hero-message {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-secondary);
+  opacity: 0.8;
+  padding: 2vw;
+  border-radius: 1vw;
+  font-family: var(--font-headline);
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  color: var(--color-tertiary);
+  width:28vw;
+}
+
+.hero-message h2{
+  font-size: var(--font-size-medium );
+  margin-bottom: 1vw;
+  font-weight: bold;
+  color: white;
+}
+
+.message, .featured-subtitle{
+    margin: 3vw 8vw;
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    color: var(--color-primary);
+    line-height: 2.3;
+    text-align: center;
+}
+
+.featured-icecreams h2 {
+  font-size: var(--font-size-medium );
+  font-family: var(--font-headline);
+  margin-bottom: 1vw;
+  font-weight: bold;
+  color: var(--color-tertiary);
+  text-align: center;
+}
+.featured-icecreams h3{
+  font-size: var(--font-size-medium);
+  font-family: var(--font-headline);
+  margin: 1vw 0 0.5vw 0;
+  font-weight: bold;
+  color: var(--color-tertiary);
+  text-align: center;
+  text-decoration: none;
+
+}
+.featured-icecreams .icecream-description, .featured-icecreams .icecream-price{
+  font-size: var(--font-size-base);
+  font-family: var(--font-body);
+  color: var(--color-primary);
+  line-height: 1.8;
+  margin: 0 1vw;
+  text-decoration: none;
+}
+
+.featured-icecreams li{
+  list-style: none;
+  margin-bottom: 4vw;
+  text-align: center;
+}
+.featured-icecreams img{
+  width: 55vw;
+  height: 55vw;
+  object-fit: cover;
+  border-radius: 1vw;
+}
+
+/* Remove underline from links inside the featured ice creams grid */
+.featured-icecreams a,
+.featured-icecreams a:link,
+.featured-icecreams a:visited {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* ensures block-level layout for anchors that wrap block children */
+}
+
+.featured-icecreams a:hover {
+  text-decoration: none;
 }
