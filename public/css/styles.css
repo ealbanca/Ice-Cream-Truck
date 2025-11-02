@@ -45,6 +45,11 @@
   margin-right: 7vw;
 }
 
+#tools a:hover {
+  text-decoration: none;
+  color: var(--color-tertiary);
+}
+
 /*Navigation Styles*/
 
 nav{
