@@ -44,3 +44,42 @@
   font-size: var(--font-size-medium);
   margin-right: 7vw;
 }
+
+/*Navigation Styles*/
+
+nav{
+  background-color: var(--color-secondary);
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  color: var(--color-primary);
+
+}
+nav ul{
+  display: flex;
+  list-style: none;
+  gap:10vw;
+  padding: 0;
+  justify-content: center;
+  align-items: center; 
+  font-family: var(--font-body);
+  color: white;
+  font-size: var(--font-size-medium);
+}
+
+/* Remove underline from navigation links */
+nav a,
+nav a:visited {
+  color: inherit; 
+  text-decoration: none;
+}
+
+nav a:focus {
+  outline: 2px dashed rgba(255,255,255,0.9);
+  outline-offset: 3px;
+}
+
+nav a:hover {
+  text-decoration: none;
+  color: var(--color-tertiary);
+}
