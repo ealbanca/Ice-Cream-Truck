@@ -7,8 +7,8 @@ import (
 
 func TestDatabaseConnection(t *testing.T) {
 	// Set test environment variables
-	os.Setenv("DB_USER", "root") // Replace with your MySQL username
-	os.Setenv("DB_PASSWORD", "") // Replace with your MySQL password
+	os.Setenv("DB_USER", "root")         // Replace with your MySQL username
+	os.Setenv("DB_PASSWORD", "password") // Replace with your MySQL password
 	os.Setenv("DB_HOST", "localhost")
 	os.Setenv("DB_PORT", "3306")
 	os.Setenv("DB_NAME", "icecream_truck")
