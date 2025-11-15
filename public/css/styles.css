@@ -14,26 +14,20 @@
     --color-secondary: #a67b4c;
     --color-tertiary: #590503;
     --color-accent: #0cc0df;
-
-    /*Font Sizes*/
-    --font-size-base: 1vw;
-    --font-size-medium: 2vw;
-    --font-size-lg: 3vw;
 }
 
 /*Header Styles*/
 
 #top-header {
   background-color: var(--color-accent);
-  padding: 3vw vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 16vw;
+  height: 8vw;
 }
 
 .siteName img{
-    height: 15vw;
+    height: 5vw;
     margin-left: 7vw;
 }
 
@@ -41,7 +35,6 @@
   text-decoration: none;
   color: white;
   font-family: var(--font-body);
-  font-size: var(--font-size-medium);
   margin-right: 7vw;
 }
 
@@ -58,7 +51,6 @@ nav{
   flex: 1;
   justify-content: center;
   color: var(--color-primary);
-  height: 4vw;
 
 }
 nav ul{
@@ -70,7 +62,6 @@ nav ul{
   align-items: center; 
   font-family: var(--font-headline);
   color: white;
-  font-size: var(--font-size-medium);
   font-weight: bold;
 }
 
@@ -96,34 +87,29 @@ nav a:hover {
 .hero {
   position: relative;
   width: 100%;
+  margin:auto;
   text-align: center;
-  color: white;
 }
 .hero img {
-  width: 100%;
-  height: auto;
-  max-height: 40vw;
-  object-fit: cover;
+    width: 100%;
+    object-fit: cover;
+    background-position: center;
 }
 
 .hero-message {
   position: absolute;
-  top: 50%;
-  left: 20%;
-  transform: translate(-50%, -50%);
+  bottom: 2vw;
+  left: 2vw;
   background-color: var(--color-secondary);
   opacity: 0.8;
-  padding: 2vw;
   border-radius: 1vw;
-  font-family: var(--font-headline);
-  font-size: var(--font-size-base);
+  font-family: var(--font-body);
   font-weight: bold;
   color: var(--color-tertiary);
-  width:28vw;
+  width: 60vw;
 }
 
 .hero-message h2{
-  font-size: var(--font-size-medium );
   margin-bottom: 1vw;
   font-weight: bold;
   color: white;
@@ -132,14 +118,12 @@ nav a:hover {
 .message, .featured-subtitle{
     margin: 3vw 8vw;
     font-family: var(--font-body);
-    font-size: var(--font-size-base);
     color: var(--color-primary);
     line-height: 2.3;
     text-align: center;
 }
 
 .featured-icecreams h2 {
-  font-size: var(--font-size-medium );
   font-family: var(--font-headline);
   margin-bottom: 1vw;
   font-weight: bold;
@@ -147,7 +131,6 @@ nav a:hover {
   text-align: center;
 }
 .featured-icecreams h3{
-  font-size: var(--font-size-medium);
   font-family: var(--font-headline);
   margin: 1vw 0 0.5vw 0;
   font-weight: bold;
@@ -157,7 +140,6 @@ nav a:hover {
 
 }
 .featured-icecreams .icecream-description, .featured-icecreams .icecream-price{
-  font-size: var(--font-size-base);
   font-family: var(--font-body);
   color: var(--color-primary);
   line-height: 1.8;

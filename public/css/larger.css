@@ -2,12 +2,18 @@
 @media (min-width: 800px) {
 
     /* Navigation Styles */
-    .siteName a{
-    font-size: 3vw;
-    }
-    #tools a { 
-    font-size: 1.5vw;
-    }
+
+
+
+.hero img {
+    height: 35vw;
+    display: block;
+}
+
+.hero-message {
+    width: 35vw;
+    bottom: 40%;
+}
 
 .featured-grid {
     display: grid;
@@ -25,6 +31,6 @@
 }
 
 footer{
-font-size:1vw ;
+
 }
 }
