@@ -1,7 +1,7 @@
 /******* Change Box Model ***************/
-*,
-*:before,
-*:after {
+html, body {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -216,7 +216,6 @@ footer {
 }
 
 .smedia:hover{
-  /* Approximate --color-tertiary (#590503) using filter */
   filter: brightness(0) saturate(100%) invert(10%) sepia(50%) saturate(7500%) hue-rotate(357deg) brightness(80%) contrast(110%);
 }
 
