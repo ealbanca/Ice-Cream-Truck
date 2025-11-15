@@ -1,9 +1,9 @@
 /* Media Query for Larger Viewer */
 @media (min-width: 800px) {
 
-    /* Navigation Styles */
-
-
+ #tools a, nav ul { 
+    font-size: 1.5vw;
+    }
 
 .hero img {
     height: 35vw;
@@ -13,6 +13,21 @@
 .hero-message {
     width: 35vw;
     bottom: 40%;
+    font-size: 1vw;
+}
+
+p, .icecream-description, .icecream-price {
+    font-size: 1vw;
+}
+
+h1{
+    font-size: 2vw;
+}
+h2{
+    font-size: 1.2vw
+}
+h3{
+    font-size: 1.1vw;
 }
 
 .featured-grid {

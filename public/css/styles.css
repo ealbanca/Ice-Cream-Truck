@@ -36,6 +36,7 @@
   color: white;
   font-family: var(--font-body);
   margin-right: 7vw;
+  font-weight: bold;
 }
 
 #tools a:hover {
@@ -115,12 +116,26 @@ nav a:hover {
   color: white;
 }
 
-.message, .featured-subtitle{
-    margin: 3vw 8vw;
+.message{
+    margin: auto;
     font-family: var(--font-body);
     color: var(--color-primary);
     line-height: 2.3;
-    text-align: center;
+    text-align: justify;
+    margin-bottom: 0;
+    padding: 2vw 7vw;
+}
+
+/* Featured Ice Creams Grid Styles */
+.featured-icecreams{
+  padding: 0 8vw 3vw 8vw; 
+
+}
+
+.featured-subtitle{
+      font-family: var(--font-body);
+      margin-top: 2vw;
+      margin-bottom: 2vw;
 }
 
 .featured-icecreams h2 {
@@ -165,23 +180,20 @@ nav a:hover {
 .featured-icecreams a:visited {
   text-decoration: none;
   color: inherit;
-  display: block; /* ensures block-level layout for anchors that wrap block children */
+  display: block; 
+  font-family: var(--font-body);
 }
 
-/* Fix left gap: remove UL default padding and center the grid */
-.featured-icecreams {
-  padding: 3vw 8vw; /* match other sections that use 8vw side spacing */
-}
 
 .featured-grid {
-  list-style: none; /* extra safety */
-  padding: 0; /* remove browser default left padding */
-  margin: 0 auto; /* center the UL container */
+  list-style: none; 
+  padding: 0; 
+  margin: 0 auto; 
   display: flex;
   gap: 3vw;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap; /* wrap on smaller screens */
+  flex-wrap: wrap; 
 }
 
 .featured-grid li {
