@@ -200,3 +200,31 @@ nav a:hover {
   flex: 0 1 28%; /* responsive three-column-ish layout; adjusts on smaller screens */
   box-sizing: border-box;
 }
+
+/* Footer Styles */
+footer {
+  background-color: var(--color-secondary);
+  color: white;
+  text-align: center;
+  padding: 2vw 0;
+  font-family: var(--font-body);
+  display: block;
+}
+
+.smedia{
+    margin: 0 0.5vw;
+}
+
+.smedia:hover{
+  /* Approximate --color-tertiary (#590503) using filter */
+  filter: brightness(0) saturate(100%) invert(10%) sepia(50%) saturate(7500%) hue-rotate(357deg) brightness(80%) contrast(110%);
+}
+
+.social a,
+.social a:visited {
+  text-decoration: none;
+}
+
+
+
+

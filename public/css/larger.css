@@ -46,6 +46,8 @@ h3{
 }
 
 footer{
-
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+ align-items: center;
 }
 }
