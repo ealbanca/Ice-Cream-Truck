@@ -1,0 +1,16 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+    {{template "head" .}}
+    <body>
+        <div id="wrapper">
+            {{template "header" .}}
+            {{template "navigation" .}}
+            <main>
+                {{block "content" .}}{{end}}
+            </main>
+            {{template "footer" .}}
+        </div>
+    </body>
+</html>
+{{end}}

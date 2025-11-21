@@ -1,23 +1,64 @@
 package main
 
 import (
-    "log"
-    "net/http"
-    "github.com/ealbanca/Ice-Cream-Truck/config"
-    "github.com/ealbanca/Ice-Cream-Truck/handlers"
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
+	"time"
+
+	"github.com/ealbanca/Ice-Cream-Truck/config"
+	"github.com/ealbanca/Ice-Cream-Truck/handlers"
 )
 
 func main() {
-    // Initialize database connection
-    config.InitDB()
-    defer config.DB.Close()
+	// Initialize database connection
+	config.InitDB()
+	defer config.DB.Close()
 
-    // Initialize routes
-    http.HandleFunc("/api/products", handlers.ProductsHandler)
-    
-    // Start the server
-    log.Println("Server starting on :8080...")
-    if err := http.ListenAndServe(":8080", nil); err != nil {
-        log.Fatal(err)
-    }
+	// Initialize routes
+	http.HandleFunc("/api/products", handlers.ProductsHandler)
+
+	// Serve static files from public directory
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
+	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("public/images"))))
+
+	// Parse templates (layout, partials, index)
+	templates := template.Must(template.ParseFiles(
+		filepath.Join("views", "layouts", "layout.gohtml"),
+		filepath.Join("views", "partials", "head.gohtml"),
+		filepath.Join("views", "partials", "header.gohtml"),
+		filepath.Join("views", "partials", "navigation.gohtml"),
+		filepath.Join("views", "partials", "footer.gohtml"),
+		filepath.Join("views", "index.gohtml"),
+	))
+
+	// Root route handler (renders homepage)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		data := struct {
+			Title string
+			Year  int
+		}{
+			Title: "Home",
+			Year:  time.Now().Year(),
+		}
+		err := templates.ExecuteTemplate(w, "layout", data)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
+	// Read host and port from environment variables
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	addr := host + ":" + port
+	log.Printf("Server starting on %s...", addr)
+	if err := http.ListenAndServe(addr, nil); err != nil {
+		log.Fatal(err)
+	}
 }

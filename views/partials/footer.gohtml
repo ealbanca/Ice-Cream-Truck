@@ -1,5 +1,4 @@
-<% const d = new Date()
-let year = d.getFullYear() %>
+{{define "footer"}}
 <footer>
 <div class="social">
     <h3>Follow Us</h3>
@@ -15,13 +14,13 @@ let year = d.getFullYear() %>
         </a>
     </div>
 </div>
-
 <div class="contact-info">
     <h3>Contact Information</h3>
     <p>⚲ 920 Wheeler St, Idaho Falls, ID<br>
        ☎ (385) 482-6077</p>
 </div>
   <div class="copyright">
-   <p>&copy; <%= year %>, Annie's</p>
+   <p>&copy; {{.Year}}, Annie's</p>
   </div>
 </footer>
+{{end}}
