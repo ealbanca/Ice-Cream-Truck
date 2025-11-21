@@ -6,26 +6,26 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 )
 
 var DB *sql.DB
 
 func InitDB() {
 	// Get environment variables or use defaults
-	dbUser := getEnv("DB_USER", "root")
-	dbPassword := getEnv("DB_PASSWORD", "password")
-	dbHost := getEnv("DB_HOST", "localhost")
-	dbPort := getEnv("DB_PORT", "3306")
-	dbName := getEnv("DB_NAME", "icecream_truck")
+	dbUser := getEnv("DB_USER", "anniedatabase_user")
+	dbPassword := getEnv("DB_PASSWORD", "zS4wHtUYiDvwuhdAxPXgCmYngVT8SuED")
+	dbHost := getEnv("DB_HOST", "dpg-d4fshta4d50c73f15jeg-a")
+	dbPort := getEnv("DB_PORT", "5432")
+	dbName := getEnv("DB_NAME", "anniedatabase")
 
-	// Create the connection string
-	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
-		dbUser, dbPassword, dbHost, dbPort, dbName)
+	// Create the Postgres connection string
+	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbPort, dbUser, dbPassword, dbName)
 
 	// Open database connection
 	var err error
-	DB, err = sql.Open("mysql", connectionString)
+	DB, err = sql.Open("postgres", connectionString)
 	if err != nil {
 		log.Fatal("Error connecting to the database: ", err)
 	}
@@ -36,7 +36,7 @@ func InitDB() {
 		log.Fatal("Error pinging the database: ", err)
 	}
 
-	log.Println("Successfully connected to MySQL database")
+	log.Println("Successfully connected to PostgreSQL database")
 }
 
 // Helper function to get environment variables
