@@ -53,8 +53,11 @@ func main() {
 	// Read host and port from environment variables
 	host := os.Getenv("HOST")
 	port := os.Getenv("PORT")
+	if host == "" {
+		host = "0.0.0.0"
+	}
 	if port == "" {
-		port = "8080"
+		port = "10000"
 	}
 	addr := host + ":" + port
 	log.Printf("Server starting on %s...", addr)
