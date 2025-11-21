@@ -15,7 +15,7 @@ func InitDB() {
 	// Get environment variables or use defaults
 	dbUser := getEnv("DB_USER", "anniedatabase_user")
 	dbPassword := getEnv("DB_PASSWORD", "zS4wHtUYiDvwuhdAxPXgCmYngVT8SuED")
-	dbHost := getEnv("DB_HOST", "zS4wHtUYiDvwuhdAxPXgCmYngVT8SuED@dpg-d4fshta4d50c73f15jeg-a.oregon-postgres.render.com/anniedatabase")
+	dbHost := getEnv("DB_HOST", "dpg-d4fshta4d50c73f15jeg-a.oregon-postgres.render.com")
 	dbPort := getEnv("DB_PORT", "5432")
 	dbName := getEnv("DB_NAME", "anniedatabase")
 
