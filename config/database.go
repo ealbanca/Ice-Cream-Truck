@@ -20,7 +20,7 @@ func InitDB() {
 	dbName := getEnv("DB_NAME", "anniedatabase")
 
 	// Create the Postgres connection string
-	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=require",
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 
 	// Open database connection
