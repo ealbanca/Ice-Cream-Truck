@@ -20,6 +20,7 @@ func main() {
 	// Initialize routes
 	http.HandleFunc("/api/products", handlers.ProductsHandler)
 	http.HandleFunc("/about", handlers.AboutHandler)
+	http.HandleFunc("/contact", handlers.ContactHandler)
 
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))

@@ -1,0 +1,51 @@
+{{define "content"}}
+
+<section class="hero">
+    <img src="/images/contact-hero.png" alt="Ice Cream Truck at a Community Event" class="hero-image">
+    <div class="hero-text">
+    <h1>Contact Us</h1>
+    </div>
+</section>
+
+<section class="event-box">
+    <h2>Planning an Event?</h2>
+    <div class="message-about">
+    <p>From birthday parties and school celebrations to corporate gatherings and community events, our ice cream truck brings fun and flavor to every occasion. Let us know the details, and we’ll help make your event unforgettable.</p>
+    </div>
+</section>
+
+<div class="contact-section">
+    <h2>We'd Love to Hear From You!</h2>
+    <div class="message-about">
+   <p>Whether you are planning an event, requesting a neighborhood visit, or simply have a question, we’re here to help. Reach out using the form below and our family will get back to you as soon as possible.</p>
+    </div>
+</div>
+<section class="contact-form-section">
+    <form class="contact-form" action="#" method="POST">
+        <label for="name">Name <span>*</span></label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email <span>*</span></label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number (optional)</label>
+        <input type="tel" id="phone" name="phone">
+
+        <label for="reason">How can we help? <span>*</span></label>
+        <select id="reason" name="reason" required>
+            <option value="">Select an option</option>
+            <option value="event">Booking for an event</option>
+            <option value="neighborhood">Neighborhood visit request</option>
+            <option value="general">General question</option>
+            <option value="business">Business inquiry</option>
+        </select>
+
+        <label for="message">Your Message <span>*</span></label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+        <p><strong>Response Time:</strong> We usually respond within 24–48 hours.</p>
+    </form>
+</section>
+
+{{end}}

@@ -237,7 +237,7 @@ footer {
   font-size: 5vw;
 }
 
-.about-section h2{
+.about-section h2 , .event-box h2, .contact-section h2{
     font-family: var(--font-headline);
     color: var(--color-tertiary);
     text-align: center;
@@ -252,7 +252,7 @@ footer {
     padding: 1.5vw 6vw;
 }
 
-.about-section img{
+.about-section img {
     width: 25vw;
     height: 25vw;
     object-fit: cover;
@@ -265,3 +265,51 @@ footer {
     border-style: solid;
     border-color: var(--color-tertiary);
 }
+
+/* Contact Page Styles */
+
+.contact-form-section{
+    padding: 1vw 5vw;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+}
+.contact-form label {
+    font-family: var(--font-body);
+    margin-bottom: 0.5vw;
+    font-weight: bold;
+}
+.contact-form span {
+    color: var(--color-tertiary);
+}
+.contact-form input,
+.contact-form textarea,
+#reason {
+    padding: 0.5vw;
+    margin-bottom: 1.5vw;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+}
+
+.contact-form p{
+    font-family: var(--font-body);
+    color: var(--color-primary);
+    margin-top: 1vw;
+}
+.contact-form button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-headline);
+    font-weight: bold;
+    cursor: pointer;
+}
+.contact-form button:hover {
+    background-color: var(--color-accent);
+} 
