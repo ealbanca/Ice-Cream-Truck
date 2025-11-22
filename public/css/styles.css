@@ -95,18 +95,16 @@ nav a:hover {
     width: 100%;
     object-fit: cover;
     background-position: center;
+    filter: brightness(60%);
 }
 
 .hero-message {
   position: absolute;
   bottom: 2vw;
   left: 2vw;
-  background-color: var(--color-secondary);
-  opacity: 0.8;
-  border-radius: 1vw;
   font-family: var(--font-body);
   font-weight: bold;
-  color: var(--color-tertiary);
+  color: white;
   width: 60vw;
 }
 
@@ -117,13 +115,11 @@ nav a:hover {
 }
 
 .message{
-    margin: auto;
     font-family: var(--font-body);
     color: var(--color-primary);
     line-height: 2.3;
     text-align: justify;
-    margin-bottom: 0;
-    padding: 2vw 7vw;
+    padding: 1.5vw 6vw;
 }
 
 /* Featured Ice Creams Grid Styles */
@@ -225,5 +221,47 @@ footer {
 }
 
 
+/* About Page Styles */
 
 
+.hero-text h1 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+  width: 60vw;
+  text-align: center;
+  color: white;
+  font-family: var(--font-headline);
+  font-size: 5vw;
+}
+
+.about-section h2{
+    font-family: var(--font-headline);
+    color: var(--color-tertiary);
+    text-align: center;
+    margin-top: 2vw;
+}
+
+.message-about{
+    font-family: var(--font-body);
+    color: var(--color-primary);
+    line-height: 2.3;
+    text-align: justify;
+    padding: 1.5vw 6vw;
+}
+
+.about-section img{
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    margin-bottom: 3vw;
+    opacity: 0.9;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--color-tertiary);
+}
