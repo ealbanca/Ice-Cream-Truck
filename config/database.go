@@ -12,14 +12,33 @@ import (
 var DB *sql.DB
 
 func InitDB() {
-	// Get environment variables or use defaults
-	dbUser := getEnv("DB_USER", "anniedatabase_user")
-	dbPassword := getEnv("DB_PASSWORD", "zS4wHtUYiDvwuhdAxPXgCmYngVT8SuED")
-	dbHost := getEnv("DB_HOST", "dpg-d4fshta4d50c73f15jeg-a.oregon-postgres.render.com")
-	dbPort := getEnv("DB_PORT", "5432")
-	dbName := getEnv("DB_NAME", "anniedatabase")
+	// Get environment variables (all must be set)
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
 
-	// Create the Postgres connection string
+	missing := ""
+	if dbUser == "" {
+		missing += "DB_USER "
+	}
+	if dbPassword == "" {
+		missing += "DB_PASSWORD "
+	}
+	if dbHost == "" {
+		missing += "DB_HOST "
+	}
+	if dbPort == "" {
+		missing += "DB_PORT "
+	}
+	if dbName == "" {
+		missing += "DB_NAME "
+	}
+	if missing != "" {
+		log.Fatalf("Missing required environment variables: %s", missing)
+	}
+
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=require",
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 
@@ -41,8 +60,6 @@ func InitDB() {
 
 // Helper function to get environment variables
 func getEnv(key, fallback string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
-	}
-	return fallback
+	// Deprecated: All credentials must come from environment variables only.
+	return ""
 }
