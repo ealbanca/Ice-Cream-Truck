@@ -10,9 +10,16 @@ import (
 
 	"github.com/ealbanca/Ice-Cream-Truck/config"
 	"github.com/ealbanca/Ice-Cream-Truck/handlers"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Load environment variables from .env file (for local development)
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("No .env file found or error loading .env file (this is OK in production)")
+	}
+
 	// Initialize database connection
 	config.InitDB()
 	defer config.DB.Close()
