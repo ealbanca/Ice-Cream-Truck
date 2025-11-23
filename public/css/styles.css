@@ -268,7 +268,41 @@ footer {
 
 /* Contact Page Styles */
 
-.contact-form-section{
+.event-box, .contact-box{
+    padding: 1vw 5vw;
+    background-color: #f9f9f9;
+    margin: 2vw 5vw;
+}
+.event-box{
+    border-left: 6px solid var(--color-accent);
+}
+
+.contact-box{
+    border-left: 6px solid var(--color-tertiary);
+}
+
+.event-box h2{
+    margin-bottom: 1vw;
+}
+.event-box p{
+    font-family: var(--font-body);
+    color: var(--color-primary);
+    line-height: 2;
+    text-align: justify;
+}
+
+#event-scheduler-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+}
+#event-scheduler-form label {
+    font-family: var(--font-body);
+    margin-bottom: 0.5vw; 
+}
+
+.contact-form-section {
     padding: 1vw 5vw;
 }
 .contact-form {
@@ -277,7 +311,7 @@ footer {
     max-width: 600px;
     margin: auto;
 }
-.contact-form label {
+.contact-form label, #event-scheduler-form label {
     font-family: var(--font-body);
     margin-bottom: 0.5vw;
     font-weight: bold;
@@ -287,7 +321,8 @@ footer {
 }
 .contact-form input,
 .contact-form textarea,
-#reason {
+#reason, #event-scheduler-form input, #event-scheduler-form textarea,
+#event-scheduler-form select {
     padding: 0.5vw;
     margin-bottom: 1.5vw;
     border: 1px solid #ccc;
@@ -300,7 +335,7 @@ footer {
     color: var(--color-primary);
     margin-top: 1vw;
 }
-.contact-form button {
+.contact-form button, #event-scheduler-form button {
     background-color: var(--color-secondary);
     color: white;
     padding: 0.7vw;
@@ -310,6 +345,6 @@ footer {
     font-weight: bold;
     cursor: pointer;
 }
-.contact-form button:hover {
+.contact-form button:hover, #event-scheduler-form button:hover {
     background-color: var(--color-accent);
 } 
