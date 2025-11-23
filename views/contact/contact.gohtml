@@ -11,6 +11,36 @@
     <h2>Planning an Event?</h2>
     <div class="message-about">
     <p>From birthday parties and school celebrations to corporate gatherings and community events, our ice cream truck brings fun and flavor to every occasion. Let us know the details, and we’ll help make your event unforgettable.</p>
+    <form id="event-scheduler-form">
+    <label for="event-date">Date:</label>
+    <input type="date" id="event-date" name="date" required>
+    <label for="event-time">Time:</label>
+    <input type="time" id="event-time" name="time" required>
+    <label for="event-description">Description:</label>
+    <textarea id="event-description" name="description" required></textarea>
+    <button type="submit">Schedule Event</button>
+</form>
+<script>
+document.getElementById('event-scheduler-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const data = {
+        date: document.getElementById('event-date').value,
+        time: document.getElementById('event-time').value,
+        description: document.getElementById('event-description').value
+    };
+    const res = await fetch('/api/events', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+    if (res.ok) {
+        alert('Event scheduled!');
+        this.reset();
+    } else {
+        alert('Error scheduling event');
+    }
+};
+</script>
     </div>
 </section>
 
