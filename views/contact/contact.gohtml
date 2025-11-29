@@ -17,7 +17,7 @@
     <label for="event-time">Time:</label>
     <input type="time" id="event-time" name="time" required>
     <label for="event-description">Description:</label>
-    <textarea id="event-description" name="description" required></textarea>
+    <textarea id="event-description" rows="6" name="description" required></textarea>
     <button type="submit">Schedule Event</button>
 </form>
 <script>
@@ -72,7 +72,7 @@ document.getElementById('event-scheduler-form').onsubmit = async function(e) {
         </select>
 
         <label for="message">Your Message <span>*</span></label>
-        <textarea id="message" name="message" rows="6" required></textarea>
+        <textarea id="yourmessage" name="message" rows="6" required></textarea>
 
         <button type="submit" class="submit-btn">Send Message</button>
         <p><strong>Response Time:</strong> We usually respond within 24–48 hours.</p>
