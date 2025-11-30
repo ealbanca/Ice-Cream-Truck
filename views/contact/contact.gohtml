@@ -20,27 +20,7 @@
     <textarea id="event-description" rows="6" name="description" required></textarea>
     <button type="submit">Schedule Event</button>
 </form>
-<script>
-document.getElementById('event-scheduler-form').onsubmit = async function(e) {
-    e.preventDefault();
-    const data = {
-        date: document.getElementById('event-date').value,
-        time: document.getElementById('event-time').value,
-        description: document.getElementById('event-description').value
-    };
-    const res = await fetch('/api/events', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    });
-    if (res.ok) {
-        alert('Event scheduled!');
-        this.reset();
-    } else {
-        alert('Error scheduling event');
-    }
-};
-</script>
+<!-- JS for event and contact forms is now in public/js/contact.js -->
     </div>
 </section>
 
@@ -77,6 +57,9 @@ document.getElementById('event-scheduler-form').onsubmit = async function(e) {
         <button type="submit" class="submit-btn">Send Message</button>
         <p><strong>Response Time:</strong> We usually respond within 24–48 hours.</p>
     </form>
+    </section>
+</section>
+<script src="/js/contact.js"></script>
 </section>
 </section>
 

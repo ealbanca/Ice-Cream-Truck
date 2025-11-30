@@ -11,7 +11,6 @@ type Contact struct {
 	Phone   string `json:"phone"`
 	Reason  string `json:"reason"`
 	Message string `json:"message"`
-
 }
 
 // Create a new contact entry
@@ -21,8 +20,8 @@ func (c *Contact) Create() error {
 }
 
 // Get all contact entries
-func GetAllContacts() ([]Contact, error)
- {	rows, err := config.DB.Query("SELECT id, name, email, phone, reason, message FROM contacts ORDER BY id")
+func GetAllContacts() ([]Contact, error) {
+	rows, err := config.DB.Query("SELECT id, name, email, phone, reason, message FROM contacts ORDER BY id")
 	if err != nil {
 		return nil, err
 	}
