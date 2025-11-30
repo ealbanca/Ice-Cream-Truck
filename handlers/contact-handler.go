@@ -15,11 +15,13 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 		var input struct {
-			Name    string `json:"name"`
-			Email   string `json:"email"`
-			Phone   string `json:"phone"`
-			Reason  string `json:"reason"`
-			Message string `json:"message"`
+			ID        int       `json:"id"`
+			Name      string    `json:"name"`
+			Email     string    `json:"email"`
+			Phone     string    `json:"phone"`
+			Reason    string    `json:"reason"`
+			Message   string    `json:"message"`
+			CreatedAt time.Time `json:"created_at"`
 		}
 		if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 			http.Error(w, "Invalid input", http.StatusBadRequest)

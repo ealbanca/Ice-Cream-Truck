@@ -4,8 +4,10 @@ if (eventForm) {
     eventForm.onsubmit = async function(e) {
         e.preventDefault();
         const data = {
-            date: document.getElementById('event-date').value,
-            time: document.getElementById('event-time').value,
+            name: document.getElementById('event-name').value,
+            email: document.getElementById('event-email').value,
+            phone: document.getElementById('event-phone').value,
+            date: document.getElementById('event-date').value + 'T' + document.getElementById('event-time').value,
             description: document.getElementById('event-description').value
         };
         const res = await fetch('/api/events', {

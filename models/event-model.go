@@ -8,19 +8,24 @@ import (
 
 type Event struct {
 	ID          int       `json:"id"`
+	Name        string    `json:"name"`
+	Email       string    `json:"email"`
+	Phone       string    `json:"phone"`
 	Date        time.Time `json:"date"`
 	Description string    `json:"description"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 // Create a new event
 func (e *Event) Create() error {
-	query := `INSERT INTO events (date, description) VALUES ($1, $2) RETURNING id`
-	return config.DB.QueryRow(query, e.Date, e.Description).Scan(&e.ID)
+	e.CreatedAt = time.Now()
+	query := `INSERT INTO events (name, email, phone, date, description, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`
+	return config.DB.QueryRow(query, e.Name, e.Email, e.Phone, e.Date, e.Description, e.CreatedAt).Scan(&e.ID)
 }
 
 // Get all events
 func GetAllEvents() ([]Event, error) {
-	rows, err := config.DB.Query("SELECT id, date, description FROM events ORDER BY date")
+	rows, err := config.DB.Query("SELECT id, name, email, phone, date, description, created_at FROM events ORDER BY date")
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +34,8 @@ func GetAllEvents() ([]Event, error) {
 	var events []Event
 	for rows.Next() {
 		var e Event
-		if err := rows.Scan(&e.ID, &e.Date, &e.Description); err != nil {
+		err := rows.Scan(&e.ID, &e.Name, &e.Email, &e.Phone, &e.Date, &e.Description, &e.CreatedAt)
+		if err != nil {
 			return nil, err
 		}
 		events = append(events, e)
