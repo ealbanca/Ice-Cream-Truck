@@ -2,7 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
+	"html/template"
 	"net/http"
+	"path/filepath"
+	"time"
 
 	"github.com/ealbanca/Ice-Cream-Truck/models"
 )
@@ -36,12 +39,26 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(contact)
 	case http.MethodGet:
-		contacts, err := models.GetAllContacts()
-		if err != nil {
-			http.Error(w, "Failed to fetch contacts", http.StatusInternalServerError)
-			return
+		// Render the contact page template
+		tmpl := template.Must(template.ParseFiles(
+			filepath.Join("views", "layouts", "layout.gohtml"),
+			filepath.Join("views", "partials", "head.gohtml"),
+			filepath.Join("views", "partials", "header.gohtml"),
+			filepath.Join("views", "partials", "navigation.gohtml"),
+			filepath.Join("views", "partials", "footer.gohtml"),
+			filepath.Join("views", "contact", "contact.gohtml"),
+		))
+		data := struct {
+			Title string
+			Year  int
+		}{
+			Title: "Contact",
+			Year:  time.Now().Year(),
 		}
-		json.NewEncoder(w).Encode(contacts)
+		err := tmpl.ExecuteTemplate(w, "layout", data)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
