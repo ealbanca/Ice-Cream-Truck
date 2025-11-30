@@ -14,7 +14,7 @@ func AboutHandler(w http.ResponseWriter, r *http.Request) {
 		filepath.Join("views", "partials", "header.gohtml"),
 		filepath.Join("views", "partials", "navigation.gohtml"),
 		filepath.Join("views", "partials", "footer.gohtml"),
-		filepath.Join("views", "about.gohtml"),
+		filepath.Join("views", "about", "about.gohtml"),
 	))
 	data := struct {
 		Title string

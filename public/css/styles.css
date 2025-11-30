@@ -117,7 +117,6 @@ nav a:hover {
 .message{
     font-family: var(--font-body);
     color: var(--color-primary);
-    line-height: 2.3;
     text-align: justify;
     padding: 1.5vw 6vw;
 }
@@ -153,7 +152,7 @@ nav a:hover {
 .featured-icecreams .icecream-description, .featured-icecreams .icecream-price{
   font-family: var(--font-body);
   color: var(--color-primary);
-  line-height: 1.8;
+  line-height: 1.5;
   margin: 0 1vw;
   text-decoration: none;
 }
@@ -247,7 +246,6 @@ footer {
 .message-about{
     font-family: var(--font-body);
     color: var(--color-primary);
-    line-height: 2.3;
     text-align: justify;
     padding: 1.5vw 6vw;
 }
@@ -287,7 +285,6 @@ footer {
 .event-box p{
     font-family: var(--font-body);
     color: var(--color-primary);
-    line-height: 2;
     text-align: justify;
 }
 
