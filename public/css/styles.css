@@ -57,7 +57,7 @@ nav{
 nav ul{
   display: flex;
   list-style: none;
-  gap:10vw;
+  gap:7vw;
   padding: 0;
   justify-content: center;
   align-items: center; 
@@ -415,4 +415,66 @@ footer {
 .login-links a:hover {
     color: var(--color-tertiary);
     text-decoration: underline;
+}
+
+label span {
+    color: var(--color-tertiary);
+    font-weight: bold;
+    margin-left: 0.2em;
+}
+
+/* Register Page Styles */
+.register-container {
+    max-width: 450px;
+    margin: 4vw auto;
+    padding: 2vw 3vw;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-body);
+}
+
+.register-container h2 {
+    text-align: center;
+    color: var(--color-tertiary);
+    font-family: var(--font-headline);
+    margin-bottom: 2vw;
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container label {
+    margin-bottom: 0.5vw;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="number"],
+.register-container input[type="password"] {
+    padding: 0.7vw;
+    margin-bottom: 1.5vw;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+}
+
+.register-container button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-headline);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1vw;
+}
+
+.register-container button:hover {
+    background-color: var(--color-accent);
 }
