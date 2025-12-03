@@ -345,3 +345,74 @@ footer {
 .contact-form button:hover, #event-scheduler-form button:hover {
     background-color: var(--color-accent);
 } 
+
+/* Login Page Styles */
+.login-container {
+    max-width: 400px;
+    margin: 4vw auto;
+    padding: 2vw 3vw;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-body);
+}
+
+.login-container h2 {
+    text-align: center;
+    color: var(--color-tertiary);
+    font-family: var(--font-headline);
+    margin-bottom: 2vw;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    margin-bottom: 0.5vw;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    padding: 0.7vw;
+    margin-bottom: 1.5vw;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+}
+
+.login-container button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-headline);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1vw;
+}
+
+.login-container button:hover {
+    background-color: var(--color-accent);
+}
+
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1vw;
+    font-size: 1vw;
+}
+.login-links a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+.login-links a:hover {
+    color: var(--color-tertiary);
+    text-decoration: underline;
+}

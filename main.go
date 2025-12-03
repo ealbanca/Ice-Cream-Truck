@@ -30,6 +30,7 @@ func main() {
 	http.HandleFunc("/about", handlers.AboutHandler)
 	http.HandleFunc("/contact", handlers.ContactHandler)
 	http.HandleFunc("/api/contact", handlers.ContactHandler)
+	http.HandleFunc("/account/login", handlers.LoginHandler)
 
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
