@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func AboutHandler(w http.ResponseWriter, r *http.Request) {
+func AboutHandler(w http.ResponseWriter, r *http.Request) error {
 	tmpl := template.Must(template.ParseFiles(
 		filepath.Join("views", "layouts", "layout.gohtml"),
 		filepath.Join("views", "partials", "head.gohtml"),
@@ -23,8 +23,8 @@ func AboutHandler(w http.ResponseWriter, r *http.Request) {
 		Title: "About",
 		Year:  time.Now().Year(),
 	}
-	err := tmpl.ExecuteTemplate(w, "layout", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
+		return err
 	}
+	return nil
 }

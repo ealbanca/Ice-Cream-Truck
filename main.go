@@ -25,13 +25,13 @@ func main() {
 	defer config.DB.Close()
 
 	// Initialize routes
-	http.HandleFunc("/api/products", handlers.ProductsHandler)
-	http.HandleFunc("/api/events", handlers.EventHandler)
-	http.HandleFunc("/about", handlers.AboutHandler)
-	http.HandleFunc("/contact", handlers.ContactHandler)
-	http.HandleFunc("/api/contact", handlers.ContactHandler)
-	http.HandleFunc("/account/login", handlers.LoginHandler)
-	http.HandleFunc("/account/register", handlers.RegisterHandler)
+	http.HandleFunc("/api/products", handlers.ErrorHandler(handlers.ProductsHandler))
+	http.HandleFunc("/api/events", handlers.ErrorHandler(handlers.EventHandler))
+	http.HandleFunc("/about", handlers.ErrorHandler(handlers.AboutHandler))
+	http.HandleFunc("/contact", handlers.ErrorHandler(handlers.ContactHandler))
+	http.HandleFunc("/api/contact", handlers.ErrorHandler(handlers.ContactHandler))
+	http.HandleFunc("/account/login", handlers.ErrorHandler(handlers.LoginHandler))
+	http.HandleFunc("/account/register", handlers.ErrorHandler(handlers.RegisterHandler))
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))

@@ -1,6 +1,9 @@
 {{define "content"}}
 <div class="register-container">
 <h2>Register an Account</h2>
+{{if .Message}}
+    <div class="register-message">{{.Message}}</div>
+{{end}}
 <form action="/account/register" method="post">
 
     <label for="Name">Name <span>*</span></label>

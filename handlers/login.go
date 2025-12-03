@@ -1,13 +1,14 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
 	"time"
 )
 
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
+func LoginHandler(w http.ResponseWriter, r *http.Request) error {
 	tmpl := template.Must(template.ParseFiles(
 		filepath.Join("views", "layouts", "layout.gohtml"),
 		filepath.Join("views", "partials", "head.gohtml"),
@@ -23,8 +24,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		Title: "Login",
 		Year:  time.Now().Year(),
 	}
-	err := tmpl.ExecuteTemplate(w, "layout", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
+		return fmt.Errorf("template execution error: %w", err)
 	}
+	return nil
 }
