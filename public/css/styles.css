@@ -489,3 +489,63 @@ label span {
     text-align: center;
     border: 1px solid var(--color-accent);
 }
+
+/* Management Page Styles */
+.Management-Container {
+    max-width: 800px;
+    margin: 4vw auto;
+    padding: 2vw 3vw;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-body);
+}
+
+.Management-Container h1, .Account-Management h2 {
+    text-align: center;
+    color: var(--color-tertiary);
+    font-family: var(--font-headline);
+}
+
+.Account-Management{
+    max-width: 800px;
+    margin: 4vw auto;
+    padding: 2vw 3vw;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-body);
+}
+
+.management-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2vw;
+}
+
+.management-table td a,
+.management-table td a:visited {
+    text-decoration: none;
+}
+
+.management-table th,
+.management-table td {
+    border: 1px solid #ccc;
+    padding: 0.8vw;
+    text-align: left;
+    font-family: var(--font-body);
+}
+.management-table th {
+    background-color: var(--color-secondary);
+    color: white;
+    font-weight: bold;
+}
+.management-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.management-table tr:hover,
+.management-table tr:hover td,
+.management-table tr:hover a {
+    background-color: var(--color-accent);
+    color: white !important;
+}

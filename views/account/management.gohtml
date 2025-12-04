@@ -1,18 +1,30 @@
 {{define "content"}}
 
-<div class= "Management-Container">
-<h1>Welcome, {{.User.Username}}!</h1>
-<p>Here you can manage your account settings and preferences.</p>
+<div class="Management-Container">
+    <h1>Welcome, {{.User.Username}}!</h1>
 </div>
 
 <div class="Account-Management">
     <h2>Account Management</h2>
-    <ul>
-        <li><a href="/account/edit">Edit Profile</a></li>
-        <li><a href="/account/orders">View Orders</a></li>
-        <li><a href="/account/creations">Your Creations</a></li>
-        <li><a href="/account/delete">Delete Account</a></li>
-    </ul>
+
+    <table class="management-table">
+        <tr>
+            <td><a href="/account/edit">Edit Profile</a></td>
+            <td>Update your personal information and preferences.</td>
+        </tr>
+        <tr>
+            <td><a href="/account/orders">View Orders</a></td>
+            <td>Review your past and current orders.</td>
+        </tr>
+        <tr>
+            <td><a href="/account/creations">Your Creations</a></td>
+            <td>Manage your custom ice cream creations.</td>
+        </tr>
+        <tr>
+            <td><a href="/account/delete">Delete Account</a></td>
+            <td>Remove your account permanently.</td>
+        </tr>
+    </table>
 </div>
 
 {{end}}
