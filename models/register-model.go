@@ -45,3 +45,8 @@ func AuthenticateUser(db *sql.DB, usernameOrEmail, password string) (*User, erro
 	}
 	return &u, nil
 }
+
+// RegisterUser creates a new user and saves it to the database
+func RegisterUser(user *User) error {
+	return user.Register()
+}
