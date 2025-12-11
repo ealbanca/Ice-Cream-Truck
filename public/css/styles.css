@@ -123,14 +123,17 @@ nav a:hover {
 
 /* Featured Ice Creams Grid Styles */
 .featured-icecreams{
-  padding: 0 8vw 3vw 8vw; 
-
+  padding: 0 8vw 3vw 8vw;
+    margin: auto;
 }
 
 .featured-subtitle{
-      font-family: var(--font-body);
-      margin-top: 2vw;
-      margin-bottom: 2vw;
+    font-family: var(--font-body);
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-align: center;
 }
 
 .featured-icecreams h2 {
@@ -155,6 +158,7 @@ nav a:hover {
   line-height: 1.5;
   margin: 0 1vw;
   text-decoration: none;
+  text-align: center;
 }
 
 .featured-icecreams li{
@@ -601,3 +605,78 @@ h1 {
 .edit-account-form button:hover {
     background-color: var(--color-accent);
 }
+
+/* Build your own page styles */
+
+.build-container {
+    max-width: 900px;
+    margin: 4vw auto;
+    padding: 2vw 3vw;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-body);
+}
+
+.build-options {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+.build-choice-group {
+    flex: 1 1 220px;
+    min-width: 220px;
+}
+.build-choice-list {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 1rem 0;
+}
+.build-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    transition: border 0.2s, box-shadow 0.2s;
+    background: #f7fafc;
+}
+.build-choice.selected {
+    border: 2px solid #1976d2;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+    background: #e3f2fd;
+}
+.build-choice img {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+    margin-bottom: 0.3rem;
+}
+.build-choice span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+.build-container label {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+.build-container button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.7vw 1.5vw;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-headline);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1vw;
+}
+.build-container button:hover {
+    background-color: var(--color-accent);
+}
+
