@@ -12,12 +12,12 @@
     <div class="message-about">
     <p>From birthday parties and school celebrations to corporate gatherings and community events, our ice cream truck brings fun and flavor to every occasion. Let us know the details, and we’ll help make your event unforgettable.</p>
     <form id="event-scheduler-form">
-    <label for="event-name">Name:</label>
-    <input type="text" id="event-name" name="name" required>
-    <label for="event-email">Email:</label>
-    <input type="email" id="event-email" name="email" required>
-    <label for="event-phone">Phone:</label>
-    <input type="tel" id="event-phone" name="phone" required>
+    <label for="event-name">Name:<span>*</span></label>
+    <input type="text" id="event-name" name="name" required value="{{if .User}}{{.User.Name}}{{end}}">
+    <label for="event-email">Email:<span>*</span></label>
+    <input type="email" id="event-email" name="email" required value="{{if .User}}{{.User.Email}}{{end}}">
+    <label for="event-phone">Phone:<span>*</span></label>
+    <input type="tel" id="event-phone" name="phone" required value="{{if .User}}{{.User.Phone}}{{end}}">
     <label for="event-date">Date:</label>
     <input type="date" id="event-date" name="date" required>
     <label for="event-time">Time:</label>
@@ -40,18 +40,18 @@
 <section class="contact-form-section">
     <form class="contact-form" action="#" method="POST">
         <label for="name">Name <span>*</span></label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" required value="{{if .User}}{{.User.Name}}{{end}}">
 
         <label for="email">Email <span>*</span></label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required value="{{if .User}}{{.User.Email}}{{end}}">
 
         <label for="phone">Phone Number (optional)</label>
-        <input type="tel" id="phone" name="phone">
+        <input type="tel" id="phone" name="phone" value="{{if .User}}{{.User.Phone}}{{end}}">
 
         <label for="reason">How can we help? <span>*</span></label>
         <select id="reason" name="reason" required>
             <option value="">Select an option</option>
-            <option value="event">Booking for an event</option>
+            <option value="feedback">Feedback</option>
             <option value="neighborhood">Neighborhood visit request</option>
             <option value="general">General question</option>
             <option value="business">Business inquiry</option>
