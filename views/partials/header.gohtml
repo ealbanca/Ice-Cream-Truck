@@ -6,7 +6,11 @@
     </a>
   </span>
   <div id="tools">
-    <a title="Click to log in" href="/login">Log In</a>
+    {{if .User}}
+      <a title="Click to log out" href="/logout">Log Out</a>
+    {{else}}
+      <a title="Click to log in" href="/login">Log In</a>
+    {{end}}
   </div>
 </header>
 {{end}}

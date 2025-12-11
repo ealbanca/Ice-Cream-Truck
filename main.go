@@ -10,6 +10,7 @@ import (
 
 	"github.com/ealbanca/Ice-Cream-Truck/config"
 	"github.com/ealbanca/Ice-Cream-Truck/handlers"
+	"github.com/ealbanca/Ice-Cream-Truck/models"
 	"github.com/joho/godotenv"
 )
 
@@ -32,6 +33,8 @@ func main() {
 	http.HandleFunc("/api/contact", handlers.ErrorHandler(handlers.ContactHandler))
 	http.HandleFunc("/register", handlers.ErrorHandler(handlers.RegisterHandler))
 	http.HandleFunc("/login", handlers.ErrorHandler(handlers.LoginHandler))
+	http.HandleFunc("/logout", handlers.ErrorHandler(handlers.LogoutHandler))
+	http.HandleFunc("/edit-account", handlers.ErrorHandler(handlers.EditAccountHandler))
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))
@@ -49,16 +52,23 @@ func main() {
 
 	// Root route handler (renders homepage)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		var user *models.User
+		if userID, err := handlers.GetSessionUserID(r); err == nil {
+			user, _ = models.GetUserByID(userID)
+		}
 		data := struct {
 			Title string
 			Year  int
+			User  *models.User
 		}{
 			Title: "Home",
 			Year:  time.Now().Year(),
+			User:  user, // now set if logged in
 		}
 		err := templates.ExecuteTemplate(w, "layout", data)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			log.Printf("template execution error: %v", err)
+			return
 		}
 	})
 

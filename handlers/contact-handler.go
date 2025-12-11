@@ -42,6 +42,10 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	case http.MethodGet:
 		// Render the contact page template
+		var user *models.User
+		if userID, err := GetSessionUserID(r); err == nil {
+			user, _ = models.GetUserByID(userID)
+		}
 		tmpl := template.Must(template.ParseFiles(
 			filepath.Join("views", "layouts", "layout.gohtml"),
 			filepath.Join("views", "partials", "head.gohtml"),
@@ -53,9 +57,11 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) error {
 		data := struct {
 			Title string
 			Year  int
+			User  *models.User
 		}{
 			Title: "Contact",
 			Year:  time.Now().Year(),
+			User:  user,
 		}
 		if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
 			return err

@@ -1,0 +1,34 @@
+{{define "content"}}
+
+<h1>Edit Your Account</h1>
+
+{{if .Message}}
+    <div class="message">{{.Message}}</div>
+{{end}}
+
+<form action="/edit-account" method="POST" class="edit-account-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{if .User}}{{.User.Name}}{{end}}" required />
+
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="lastname" value="{{if .User}}{{.User.Lastname}}{{end}}" required />
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="{{if .User}}{{.User.Username}}{{end}}" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{if .User}}{{.User.Email}}{{end}}" required />
+
+        <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" value="{{if .User}}{{.User.Phone}}{{end}}" required />
+
+    <label for="password">New Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter new password" />
+
+    <label for="confirm-password">Confirm New Password:</label>
+    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" />
+
+    <button type="submit">Save Changes</button>
+</form>
+
+{{end}}
