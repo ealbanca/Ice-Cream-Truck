@@ -549,3 +549,55 @@ label span {
     background-color: var(--color-accent);
     color: white !important;
 }
+
+/* Edit Account Page Styles */
+
+h1 {
+    text-align: center;
+    color: var(--color-tertiary);
+    font-family: var(--font-headline);
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+.edit-account-container {
+    max-width: 500px;
+    margin: 2vw auto;
+    padding: 2vw 3vw;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: var(--font-body);
+}
+.edit-account-form {
+    display: flex;
+    flex-direction: column;
+}
+.edit-account-form label {
+    margin-bottom: 0.5vw;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+.edit-account-form input[type="text"],
+.edit-account-form input[type="email"],
+.edit-account-form input[type="number"],
+.edit-account-form input[type="password"] {
+    padding: 0.7vw;
+    margin-bottom: 1.5vw;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+}
+.edit-account-form button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-headline);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1vw;
+}
+.edit-account-form button:hover {
+    background-color: var(--color-accent);
+}

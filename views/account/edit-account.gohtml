@@ -6,6 +6,7 @@
     <div class="message">{{.Message}}</div>
 {{end}}
 
+<div class="edit-account-container">
 <form action="/edit-account" method="POST" class="edit-account-form">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="{{if .User}}{{.User.Name}}{{end}}" required />
@@ -19,7 +20,7 @@
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" value="{{if .User}}{{.User.Email}}{{end}}" required />
 
-        <label for="phone">Phone:</label>
+    <label for="phone">Phone:</label>
     <input type="text" id="phone" name="phone" value="{{if .User}}{{.User.Phone}}{{end}}" required />
 
     <label for="password">New Password:</label>
@@ -30,5 +31,6 @@
 
     <button type="submit">Save Changes</button>
 </form>
+</div>
 
 {{end}}
