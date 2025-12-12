@@ -609,74 +609,145 @@ h1 {
 /* Build your own page styles */
 
 .build-container {
-    max-width: 900px;
-    margin: 4vw auto;
-    padding: 2vw 3vw;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-family: var(--font-body);
+  max-width: 700px;
+  margin: 2.5rem auto 2rem auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 18px rgba(25, 118, 210, 0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+}
+
+.build-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
 }
 
 .build-options {
-    display: flex;
-    gap: 2.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: space-between;
 }
+
 .build-choice-group {
-    flex: 1 1 220px;
-    min-width: 220px;
+  flex: 1 1 220px;
+  min-width: 220px;
+  background: #f7fafc;
+  border-radius: 10px;
+  padding: 1.2rem 1rem 1.5rem 1rem;
+  box-shadow: 0 1px 6px rgba(25, 118, 210, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.build-choice-group label {
+  font-weight: 700;
+  font-size: 1.08rem;
+  margin-bottom: 0.7rem;
+  color: var(--color-tertiary);
+  font-family: var(--font-headline);
+}
+
 .build-choice-list {
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    margin: 0.5rem 0 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  justify-content: center;
+  margin-bottom: 0.7rem;
 }
+
 .build-choice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 0.5rem 0.7rem;
-    transition: border 0.2s, box-shadow 0.2s;
-    background: #f7fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-light);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding: 0.7rem 0.9rem 0.8rem 0.9rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  min-width: 90px;
+  min-height: 120px;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.06);
 }
+
+#size-choices {
+    display: block;
+}
+
+#flavor-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  justify-items: center;
+}
+
 .build-choice.selected {
-    border: 2px solid #1976d2;
-    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
-    background: #e3f2fd;
+  border: 2px solid var(--color-accent);
+  background: #bbdefb;
+  box-shadow: 0 2px 8px rgba(25,118,210,0.13);
 }
+
 .build-choice img {
-    width: 85px;
-    height: 85px;
-    object-fit: contain;
-    margin-bottom: 0.3rem;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.4rem;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(25, 118, 210, 0.07);
 }
+
 .build-choice span {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #333;
+  font-size: 1.01rem;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
 }
-.build-container label {
-    font-weight: bold;
-    color: var(--color-primary);
+
+.build-choice input[type="number"] {
+  margin-top: 0.3em;
+  width: 48px;
+  border: 1.5px solid #b3c6e0;
+  border-radius: 5px;
+  padding: 0.2em 0.4em;
+  font-size: 1.05rem;
+  background: #f7fafc;
+  text-align: center;
+  transition: border 0.2s;
 }
-.build-container button {
-    background-color: var(--color-secondary);
-    color: white;
-    padding: 0.7vw 1.5vw;
-    border: none;
-    border-radius: 4px;
-    font-family: var(--font-headline);
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 1vw;
+
+.build-choice input[type="number"]:focus {
+  border: 1.5px solid #1976d2;
+  outline: none;
+  background: #fff;
 }
-.build-container button:hover {
-    background-color: var(--color-accent);
+
+#flavor-limit-msg, #topping-limit-msg {
+  margin-top: 0.2em;
+  font-size: 0.97em;
+  color: #d32f2f;
+  text-align: center;
+  font-family: var(--font-body);
 }
+
+.build-form button[type="submit"] {
+  align-self: center;
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-headline);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.build-form button[type="submit"]:hover {
+  background-color: var(--color-accent);
+}
+
 

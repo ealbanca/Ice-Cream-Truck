@@ -10,130 +10,46 @@
             <div class="build-choice-group">
                 <label>Choose Size <span>*</span></label>
                 <div class="build-choice-list" id="size-choices">
-                    <div class="build-choice" data-value="small">
-                        <img src="/images/build/small.jpg" alt="Small">
-                        <span>Small<br><small>1 scoop</small></span>
+                    {{range .Sizes}}
+                    <div class="build-choice" data-value="{{.ID}}" data-label="{{.Label}}">
+                        <img src="{{.Img}}" alt="{{.Label}}">
+                        <span>{{.Label}}<br><small>${{printf "%.2f" .Price}}</small></span>
                     </div>
-                    <div class="build-choice" data-value="medium">
-                        <img src="/images/build/medium.jpeg" alt="Medium">
-                        <span>Medium<br><small>2 scoops</small></span>
-                    </div>
-                    <div class="build-choice" data-value="large">
-                        <img src="/images/build/large.jpg" alt="Large">
-                        <span>Large<br><small>3 scoops</small></span>
-                    </div>
+                    {{end}}
                 </div>
                 <input type="hidden" name="size" id="size-input" required>
             </div>
             <div class="build-choice-group">
                 <label>Choose Flavor <span>*</span></label>
                 <div class="build-choice-list" id="flavor-choices">
-                    <div class="build-choice" data-value="vanilla">
-                        <img src="/images/build/Vanilla.webp" alt="Vanilla">
-                        <span>Vanilla</span>
+                    {{range .Flavors}}
+                    <div class="build-choice" data-value="{{.ID}}">
+                        <img src="{{.Img}}" alt="{{.Name}}">
+                        <span>{{.Name}}</span>
+                        <input type="number" class="flavor-count" min="0" max="3" value="0" style="width:48px;margin-top:0.3em;" />
                     </div>
-                    <div class="build-choice" data-value="chocolate">
-                        <img src="/images/build/Chocolate.webp" alt="Chocolate">
-                        <span>Chocolate</span>
-                    </div>
-                    <div class="build-choice" data-value="strawberry">
-                        <img src="/images/build/Strawberry.webp" alt="Strawberry">
-                        <span>Strawberry</span>
-                    </div>
-                    <div class="build-choice" data-value="mint-chocolate-chip">
-                        <img src="/images/build/Mint-Chip.webp" alt="Mint Chocolate Chip">
-                        <span>Mint Chocolate Chip</span>
-                    </div>
-                    <div class="build-choice" data-value="cookies-and-cream">
-                        <img src="/images/build/Cookies-N-Cream.webp" alt="Cookies and Cream">
-                        <span>Cookies and Cream</span>
-                    </div>
-                    <div class="build-choice" data-value="pistachio">
-                        <img src="/images/build/Pistachio.webp" alt="Pistachio">
-                        <span>Pistachio</span>
-                    </div>
-                    <div class="build-choice" data-value="salted-caramel">
-                        <img src="/images/build/Salted-Caramel.webp" alt="Salted Caramel">
-                        <span>Salted Caramel</span>
-                    </div>
-                    <div class="build-choice" data-value="mango">
-                        <img src="/images/build/Mango.webp" alt="Mango">
-                        <span>Mango</span>
-                    </div>
-                    <div class="build-choice" data-value="black-raspberry">
-                        <img src="/images/build/Black-Raspberry.webp" alt="Black Raspberry">
-                        <span>Black Raspberry</span>
-                    </div>
+                    {{end}}
                 </div>
                 <input type="hidden" name="flavor" id="flavor-input" required>
+                <div id="flavor-limit-msg" style="color:#d32f2f;font-size:0.95em;margin-top:0.3em;"></div>
             </div>
             <div class="build-choice-group">
-                <label>Choose Toppings</label>
+                <label>Choose Toppings (up to 3)</label>
                 <div class="build-choice-list" id="toppings-choices">
-                    <div class="build-choice" data-value="sprinkles">
-                        <img src="/images/build/Sprinkles.jpg" alt="Sprinkles">
-                        <span>Sprinkles</span>
+                    {{range .Toppings}}
+                    <div class="build-choice" data-value="{{.ID}}">
+                        <img src="{{.Img}}" alt="{{.Name}}">
+                        <span>{{.Name}}<br><small>+${{printf "%.2f" .Price}}</small></span>
+                        <input type="number" class="topping-count" min="0" max="3" value="0" style="width:48px;margin-top:0.3em;" />
                     </div>
-                    <div class="build-choice" data-value="chocolate-chips">
-                        <img src="/images/build/Chocolate-Chips.webp" alt="Chocolate Chips">
-                        <span>Chocolate Chips</span>
-                    </div>
-                    <div class="build-choice" data-value="fruit">
-                        <img src="/images/build/Nerds.jpg" alt="Nerds">
-                        <span>Nerds</span>
-                    </div>
-                    <div class="build-choice" data-value="nuts">
-                        <img src="/images/build/Nuts.webp" alt="Nuts">
-                        <span>Nuts</span>
-                    </div>
-                    <div class="build-choice" data-value="fruit">
-                        <img src="/images/build/Gummi-Bears.jpg" alt="Gummi Bears">
-                        <span>Gummi Bears</span>
-                    </div>
-                    <div class="build-choice" data-value="fruit">
-                        <img src="/images/build/Marshmallow.jpg" alt="Marshmallows">
-                        <span>Marshmallows</span>
-                    </div>
-
+                    {{end}}
                 </div>
                 <input type="hidden" name="toppings" id="toppings-input">
+                <div id="topping-limit-msg" style="color:#d32f2f;font-size:0.95em;margin-top:0.3em;"></div>
             </div>
         </div>
         <button type="submit">Build Ice Cream</button>
     </form>
 </div>
-<script>
-// Size selection (single)
-document.querySelectorAll('#size-choices .build-choice').forEach(el => {
-    el.addEventListener('click', function() {
-        document.querySelectorAll('#size-choices .build-choice').forEach(c => c.classList.remove('selected'));
-        this.classList.add('selected');
-        document.getElementById('size-input').value = this.dataset.value;
-    });
-});
-// Flavor selection (single)
-document.querySelectorAll('#flavor-choices .build-choice').forEach(el => {
-    el.addEventListener('click', function() {
-        document.querySelectorAll('#flavor-choices .build-choice').forEach(c => c.classList.remove('selected'));
-        this.classList.add('selected');
-        document.getElementById('flavor-input').value = this.dataset.value;
-    });
-});
-// Toppings selection (multiple)
-document.querySelectorAll('#toppings-choices .build-choice').forEach(el => {
-    el.addEventListener('click', function() {
-        this.classList.toggle('selected');
-        const selected = Array.from(document.querySelectorAll('#toppings-choices .build-choice.selected')).map(c => c.dataset.value);
-        document.getElementById('toppings-input').value = selected.join(',');
-    });
-});
-// Prevent form submit if required not selected
-const form = document.getElementById('build-form');
-form.addEventListener('submit', function(e) {
-    if (!document.getElementById('size-input').value || !document.getElementById('flavor-input').value) {
-        alert('Please select a size and a flavor.');
-        e.preventDefault();
-    }
-});
-</script>
+<script src="/js/build.js"></script>
 {{end}}

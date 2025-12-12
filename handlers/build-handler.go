@@ -1,9 +1,12 @@
 package handlers
 
 import (
+	"database/sql"
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/ealbanca/Ice-Cream-Truck/models"
@@ -15,6 +18,74 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 		user, _ = models.GetUserByID(userID)
 	}
 
+	message := ""
+
+	sizes, _ := models.GetAllSizes()
+	flavors, _ := models.GetAllFlavors()
+	toppings, _ := models.GetAllToppings()
+
+	if r.Method == http.MethodPost {
+		err := r.ParseForm()
+		if err != nil {
+			message = "Invalid form data."
+		} else {
+			sizeID, _ := strconv.Atoi(r.FormValue("size"))
+			flavorIDs := strings.Split(r.FormValue("flavor"), ",")
+			toppingIDs := strings.Split(r.FormValue("toppings"), ",")
+
+			// Only use up to 3 flavors and 3 toppings (repeats allowed)
+			var flavorID1, flavorID2, flavorID3 sql.NullInt64
+			if len(flavorIDs) > 0 && flavorIDs[0] != "" {
+				id, _ := strconv.Atoi(flavorIDs[0])
+				flavorID1 = sql.NullInt64{Int64: int64(id), Valid: true}
+			}
+			if len(flavorIDs) > 1 {
+				id, _ := strconv.Atoi(flavorIDs[1])
+				flavorID2 = sql.NullInt64{Int64: int64(id), Valid: true}
+			}
+			if len(flavorIDs) > 2 {
+				id, _ := strconv.Atoi(flavorIDs[2])
+				flavorID3 = sql.NullInt64{Int64: int64(id), Valid: true}
+			}
+
+			var toppingID1, toppingID2, toppingID3 sql.NullInt64
+			if len(toppingIDs) > 0 && toppingIDs[0] != "" {
+				id, _ := strconv.Atoi(toppingIDs[0])
+				toppingID1 = sql.NullInt64{Int64: int64(id), Valid: true}
+			}
+			if len(toppingIDs) > 1 {
+				id, _ := strconv.Atoi(toppingIDs[1])
+				toppingID2 = sql.NullInt64{Int64: int64(id), Valid: true}
+			}
+			if len(toppingIDs) > 2 {
+				id, _ := strconv.Atoi(toppingIDs[2])
+				toppingID3 = sql.NullInt64{Int64: int64(id), Valid: true}
+			}
+
+			// Calculate total price (fetch from DB or set to 0.0 for now)
+			totalPrice := 0.0
+			// Optionally, fetch prices and sum here
+
+			product := models.CustomProduct{
+				ProductName: "Custom Ice Cream",
+				SizeID:      sizeID,
+				FlavorID1:   flavorID1,
+				FlavorID2:   flavorID2,
+				FlavorID3:   flavorID3,
+				ToppingID1:  toppingID1,
+				ToppingID2:  toppingID2,
+				ToppingID3:  toppingID3,
+				TotalPrice:  totalPrice,
+			}
+			err = models.SaveCustomProduct(product)
+			if err != nil {
+				message = "Failed to save your custom ice cream."
+			} else {
+				message = "Your custom ice cream has been saved!"
+			}
+		}
+	}
+
 	tmpl := template.Must(template.ParseFiles(
 		filepath.Join("views", "layouts", "layout.gohtml"),
 		filepath.Join("views", "partials", "head.gohtml"),
@@ -24,15 +95,21 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 		filepath.Join("views", "build", "build.gohtml"),
 	))
 	data := struct {
-		Title   string
-		Year    int
-		User    *models.User
-		Message string
+		Title    string
+		Year     int
+		User     *models.User
+		Sizes    []models.Size
+		Flavors  []models.Flavor
+		Toppings []models.Topping
+		Message  string
 	}{
-		Title:   "Build Your Own Ice Cream",
-		Year:    time.Now().Year(),
-		User:    user,
-		Message: "",
+		Title:    "Build Your Own Ice Cream",
+		Year:     time.Now().Year(),
+		User:     user,
+		Sizes:    sizes,
+		Flavors:  flavors,
+		Toppings: toppings,
+		Message:  message,
 	}
 	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
 		return err
