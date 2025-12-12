@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ealbanca/Ice-Cream-Truck/config"
 	"github.com/ealbanca/Ice-Cream-Truck/models"
 )
 
@@ -62,9 +63,36 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 				toppingID3 = sql.NullInt64{Int64: int64(id), Valid: true}
 			}
 
-			// Calculate total price (fetch from DB or set to 0.0 for now)
+			// --- Calculate total price from DB ---
 			totalPrice := 0.0
-			// Optionally, fetch prices and sum here
+			// Size price
+			var sizePrice float64
+			err = config.DB.QueryRow("SELECT price FROM sizes WHERE id = $1", sizeID).Scan(&sizePrice)
+			if err == nil {
+				totalPrice += sizePrice
+			}
+			// Flavor prices (sum, allow repeats)
+			for _, fid := range flavorIDs {
+				if fid == "" {
+					continue
+				}
+				var flavorPrice float64
+				err = config.DB.QueryRow("SELECT COALESCE(flavor_price, 0) FROM flavor WHERE flavor_id = $1", fid).Scan(&flavorPrice)
+				if err == nil {
+					totalPrice += flavorPrice
+				}
+			}
+			// Topping prices (sum, allow repeats)
+			for _, tid := range toppingIDs {
+				if tid == "" {
+					continue
+				}
+				var toppingPrice float64
+				err = config.DB.QueryRow("SELECT COALESCE(additional_price, 0) FROM toppings WHERE id = $1", tid).Scan(&toppingPrice)
+				if err == nil {
+					totalPrice += toppingPrice
+				}
+			}
 
 			product := models.CustomProduct{
 				ProductName: "Custom Ice Cream",

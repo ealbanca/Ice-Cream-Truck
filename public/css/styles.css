@@ -44,20 +44,32 @@ html, body {
   color: var(--color-tertiary);
 }
 
-/*Navigation Styles*/
+.cart-icon {
+  vertical-align: middle;
+  margin-right: 0.3em;
+  color: white;
+  transition: color 0.2s, transform 0.2s;
+  margin-top: 0.18em; /* Move the icon slightly down */
+}
+#tools a:hover .cart-icon {
+  color: var(--color-tertiary);
+  transform: scale(1.12);
+}
 
-nav{
+/* Navigation Styles */
+
+nav {
   background-color: var(--color-secondary);
   display: flex;
   flex: 1;
   justify-content: center;
   color: var(--color-primary);
-
 }
-nav ul{
+
+nav ul {
   display: flex;
   list-style: none;
-  gap:7vw;
+  gap: 7vw;
   padding: 0;
   justify-content: center;
   align-items: center; 
@@ -83,7 +95,7 @@ nav a:hover {
   color: var(--color-tertiary);
 }
 
-/*Index Page Styles*/
+/* Index Page Styles */
 
 .hero {
   position: relative;
@@ -408,17 +420,16 @@ footer {
     display: flex;
     justify-content: space-between;
     margin-top: 1vw;
-    font-size: 1vw;
 }
 .login-links a {
     color: var(--color-accent);
     text-decoration: none;
     font-weight: bold;
     transition: color 0.2s;
+    font-family: var(--font-body);
 }
 .login-links a:hover {
     color: var(--color-tertiary);
-    text-decoration: underline;
 }
 
 label span {
@@ -749,5 +760,15 @@ h1 {
 .build-form button[type="submit"]:hover {
   background-color: var(--color-accent);
 }
+
+.total-price-display {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--color-tertiary);
+  font-family: var(--font-headline);
+}
+
+
 
 

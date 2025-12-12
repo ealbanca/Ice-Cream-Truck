@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 // --- Size selection (single) ---
 let maxFlavors = 1;
 const sizeChoices = document.querySelectorAll('#size-choices .build-choice');
@@ -13,6 +14,7 @@ sizeChoices.forEach(el => {
         else if (label === 'large') maxFlavors = 3;
         updateFlavorLimitMsg();
         clearFlavorCounts();
+        updateTotalPrice();
     });
 });
 
@@ -36,6 +38,7 @@ function updateFlavorLimitMsg() {
 function clearFlavorCounts() {
     flavorCountInputs.forEach(input => input.value = 0);
     updateFlavorInput();
+    updateTotalPrice();
 }
 flavorCountInputs.forEach(input => {
     input.addEventListener('input', function() {
@@ -45,6 +48,7 @@ flavorCountInputs.forEach(input => {
             this.value = Math.max(0, parseInt(this.value) - (total - maxFlavors));
             updateFlavorInput();
         }
+        updateTotalPrice();
     });
 });
 // Click on flavor always increments (never deselects)
@@ -58,6 +62,7 @@ flavorChoices.forEach(choice => {
             input.value = val + 1;
             input.dispatchEvent(new Event('input'));
         }
+        updateTotalPrice();
     });
 });
 updateFlavorLimitMsg();
@@ -82,6 +87,7 @@ function updateToppingLimitMsg() {
 function clearToppingCounts() {
     toppingCountInputs.forEach(input => input.value = 0);
     updateToppingInput();
+    updateTotalPrice();
 }
 toppingCountInputs.forEach(input => {
     input.addEventListener('input', function() {
@@ -91,6 +97,7 @@ toppingCountInputs.forEach(input => {
             this.value = Math.max(0, parseInt(this.value) - (total - 3));
             updateToppingInput();
         }
+        updateTotalPrice();
     });
 });
 // Click on topping always increments (never deselects)
@@ -104,9 +111,62 @@ toppingChoices.forEach(choice => {
             input.value = val + 1;
             input.dispatchEvent(new Event('input'));
         }
+        updateTotalPrice();
     });
 });
 updateToppingLimitMsg();
+
+// --- Total Price Calculation ---
+function extractPrice(text) {
+    // Extracts a number like 2.50 from a string like '+$2.50' or '$2.50'
+    // Accepts optional +, $ and whitespace
+    const match = text.match(/([\d]+(\.[\d]{1,2})?)/);
+    if (match) return parseFloat(match[1]);
+    return 0;
+}
+function getSelectedSizePrice() {
+    const selected = document.querySelector('#size-choices .build-choice.selected');
+    if (!selected) return 0;
+    // Find price from the label span (format: $X.XX)
+    const priceText = selected.querySelector('span small');
+    if (!priceText) return 0;
+    // Debug
+    // console.log('Size priceText:', priceText.textContent);
+    return extractPrice(priceText.textContent);
+}
+function getFlavorPrices() {
+    // Returns array of {price, count}
+    const arr = [];
+    document.querySelectorAll('#flavor-choices .build-choice').forEach(c => {
+        const count = parseInt(c.querySelector('.flavor-count').value) || 0;
+        // Flavors have no price, so always 0
+        arr.push({price: 0, count});
+    });
+    return arr;
+}
+function getToppingPrices() {
+    // Returns array of {price, count}
+    const arr = [];
+    document.querySelectorAll('#toppings-choices .build-choice').forEach(c => {
+        const count = parseInt(c.querySelector('.topping-count').value) || 0;
+        const priceText = c.querySelector('span small');
+        let price = 0;
+        if (priceText) {
+            // console.log('Topping priceText:', priceText.textContent);
+            price = extractPrice(priceText.textContent);
+        }
+        arr.push({price, count});
+    });
+    return arr;
+}
+function updateTotalPrice() {
+    let total = 0;
+    total += getSelectedSizePrice();
+    getFlavorPrices().forEach(f => { total += f.price * f.count; }); // flavors are 0
+    getToppingPrices().forEach(t => { total += t.price * t.count; });
+    var el = document.getElementById('total-price');
+    if (el) el.textContent = total.toFixed(2);
+}
 
 // --- Prevent form submit if required not selected or flavor count wrong or too many toppings ---
 const form = document.getElementById('build-form');
@@ -128,4 +188,8 @@ form.addEventListener('submit', function(e) {
         e.preventDefault();
         return;
     }
+});
+
+// Initial price update
+updateTotalPrice();
 });
