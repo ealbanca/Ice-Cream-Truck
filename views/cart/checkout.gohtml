@@ -1,0 +1,33 @@
+{{define "content"}}
+{{if .Message}}
+    <div id="flash-message" class="{{.MessageType}}">{{.Message}}</div>
+{{end}}
+<div class="checkout-container">
+<h1>Checkout</h1>
+
+<p class="checkout-total">Total: ${{printf "%.2f" .TotalPrice}}</p>
+
+<form action="/checkout" method="post">
+    <input type="hidden" name="order_id" value="{{.OrderID}}" />
+    <label for="full_name">Full Name <span>*</span></label>
+    <input type="text" id="full_name" name="full_name" value="{{.FullName}}" required />
+
+    <label for="email">Email <span>*</span></label>
+    <input type="email" id="email" name="email" value="{{.Email}}" required />
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" value="{{.Phone}}"/>
+
+    <label for="credit_card">Credit Card Number <span>*</span></label>
+    <input type="text" id="credit_card" name="credit_card" required />
+
+    <label for="security_code">Security Code <span>*</span></label>
+    <input type="text" id="security_code" name="security_code" required />
+
+    <label for="expiration_date">Expiration Date <span>*</span></label>
+    <input type="text" id="expiration_date" name="expiration_date" placeholder="MM/YY" required />
+
+    <button type="submit">Submit Order</button>
+</form>
+</div>
+{{end}}

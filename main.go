@@ -40,7 +40,7 @@ func main() {
 	http.HandleFunc("/cart", handlers.ErrorHandler(handlers.CartHandler))
 	http.HandleFunc("/cart/remove", handlers.ErrorHandler(handlers.RemoveFromCartHandler))
 	http.HandleFunc("/cart/update-qty", handlers.ErrorHandler(handlers.UpdateCartQuantityHandler))
-
+	http.HandleFunc("/checkout", handlers.ErrorHandler(handlers.CheckoutHandler))
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))

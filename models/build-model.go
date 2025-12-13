@@ -8,6 +8,53 @@ import (
 	"github.com/ealbanca/Ice-Cream-Truck/config"
 )
 
+// CleanupAbandonedGuestCarts deletes guest cart data (orders, order_items, guest_carts, products) older than 1 day
+func CleanupAbandonedGuestCarts() error {
+	rows, err := config.DB.Query(`
+		SELECT id, guest_cart_id FROM orders
+		WHERE status = 'guest_cart' AND order_date < NOW() - INTERVAL '1 day'
+	`)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	var orderIDs []int
+	var guestCartIDs []string
+	for rows.Next() {
+		var id int
+		var guestCartID string
+		if err := rows.Scan(&id, &guestCartID); err == nil {
+			orderIDs = append(orderIDs, id)
+			guestCartIDs = append(guestCartIDs, guestCartID)
+		}
+	}
+
+	// Delete order_items for these orders
+	for _, orderID := range orderIDs {
+		config.DB.Exec("DELETE FROM order_items WHERE order_id = $1", orderID)
+	}
+
+	// Delete guest_carts for these guest_cart_ids
+	for _, guestCartID := range guestCartIDs {
+		config.DB.Exec("DELETE FROM guest_carts WHERE guest_cart_id = $1", guestCartID)
+	}
+
+	// Delete the guest orders themselves
+	for _, orderID := range orderIDs {
+		config.DB.Exec("DELETE FROM orders WHERE id = $1", orderID)
+	}
+
+	// Optionally, delete products that are not referenced by any order_items or guest_carts
+	config.DB.Exec(`
+		DELETE FROM products
+		WHERE id NOT IN (SELECT product_id FROM order_items)
+		  AND id NOT IN (SELECT product_id FROM guest_carts)
+	`)
+
+	return nil
+}
+
 // Add product to guest_carts for a guest_cart_id
 func AddProductToGuestCart(guestCartID string, productID int) error {
 	if guestCartID == "" {
