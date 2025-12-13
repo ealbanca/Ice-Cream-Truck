@@ -28,6 +28,12 @@ function updateFlavorInput() {
         const count = parseInt(c.querySelector('.flavor-count').value) || 0;
         for (let i = 0; i < count; i++) values.push(c.dataset.value);
         total += count;
+        // Add or remove 'selected' class based on count
+        if (count > 0) {
+            c.classList.add('selected');
+        } else {
+            c.classList.remove('selected');
+        }
     });
     document.getElementById('flavor-input').value = values.join(',');
     return total;
@@ -77,6 +83,12 @@ function updateToppingInput() {
         const count = parseInt(c.querySelector('.topping-count').value) || 0;
         for (let i = 0; i < count; i++) values.push(c.dataset.value);
         total += count;
+        // Add or remove 'selected' class based on count
+        if (count > 0) {
+            c.classList.add('selected');
+        } else {
+            c.classList.remove('selected');
+        }
     });
     document.getElementById('toppings-input').value = values.join(',');
     return total;
@@ -189,7 +201,6 @@ form.addEventListener('submit', function(e) {
         return;
     }
 });
-
-// Initial price update
+// Initial total price calculation
 updateTotalPrice();
 });

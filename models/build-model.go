@@ -29,6 +29,7 @@ type Topping struct {
 type CustomProduct struct {
 	ID          int
 	ProductName string
+	UserID      int
 	SizeID      int
 	FlavorID1   sql.NullInt64
 	FlavorID2   sql.NullInt64
@@ -89,9 +90,9 @@ func GetAllToppings() ([]Topping, error) {
 
 func SaveCustomProduct(p CustomProduct) error {
 	_, err := config.DB.Exec(
-		`INSERT INTO products (product_name, size_id, flavor_id1, flavor_id2, flavor_id3, topping_id1, topping_id2, topping_id3, total_price)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-		p.ProductName, p.SizeID, p.FlavorID1, p.FlavorID2, p.FlavorID3, p.ToppingID1, p.ToppingID2, p.ToppingID3, p.TotalPrice,
+		`INSERT INTO products (product_name, user_id, size_id, flavor_id1, flavor_id2, flavor_id3, topping_id1, topping_id2, topping_id3, total_price)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+		p.ProductName, p.UserID, p.SizeID, p.FlavorID1, p.FlavorID2, p.FlavorID3, p.ToppingID1, p.ToppingID2, p.ToppingID3, p.TotalPrice,
 	)
 	return err
 }

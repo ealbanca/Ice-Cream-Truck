@@ -20,6 +20,7 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	message := ""
+	messageType := ""
 
 	sizes, _ := models.GetAllSizes()
 	flavors, _ := models.GetAllFlavors()
@@ -29,6 +30,7 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 		err := r.ParseForm()
 		if err != nil {
 			message = "Invalid form data."
+			messageType = "error"
 		} else {
 			sizeID, _ := strconv.Atoi(r.FormValue("size"))
 			flavorIDs := strings.Split(r.FormValue("flavor"), ",")
@@ -96,6 +98,7 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 
 			product := models.CustomProduct{
 				ProductName: "Custom Ice Cream",
+				UserID:      0,
 				SizeID:      sizeID,
 				FlavorID1:   flavorID1,
 				FlavorID2:   flavorID2,
@@ -105,11 +108,16 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 				ToppingID3:  toppingID3,
 				TotalPrice:  totalPrice,
 			}
+			if user != nil {
+				product.UserID = user.ID
+			}
 			err = models.SaveCustomProduct(product)
 			if err != nil {
 				message = "Failed to save your custom ice cream."
+				messageType = "error"
 			} else {
 				message = "Your custom ice cream has been saved!"
+				messageType = "success"
 			}
 		}
 	}
@@ -123,21 +131,23 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 		filepath.Join("views", "build", "build.gohtml"),
 	))
 	data := struct {
-		Title    string
-		Year     int
-		User     *models.User
-		Sizes    []models.Size
-		Flavors  []models.Flavor
-		Toppings []models.Topping
-		Message  string
+		Title       string
+		Year        int
+		User        *models.User
+		Sizes       []models.Size
+		Flavors     []models.Flavor
+		Toppings    []models.Topping
+		Message     string
+		MessageType string
 	}{
-		Title:    "Build Your Own Ice Cream",
-		Year:     time.Now().Year(),
-		User:     user,
-		Sizes:    sizes,
-		Flavors:  flavors,
-		Toppings: toppings,
-		Message:  message,
+		Title:       "Build Your Own Ice Cream",
+		Year:        time.Now().Year(),
+		User:        user,
+		Sizes:       sizes,
+		Flavors:     flavors,
+		Toppings:    toppings,
+		Message:     message,
+		MessageType: messageType,
 	}
 	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
 		return err

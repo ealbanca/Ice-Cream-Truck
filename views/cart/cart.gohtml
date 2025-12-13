@@ -1,0 +1,51 @@
+{{define "content"}}
+<h1>Your Cart</h1>
+
+{{if .Message}}
+	<div id="flash-message" class="{{.MessageType}}">{{.Message}}</div>
+{{end}}
+
+{{if .CartItems}}
+<div class="cart-container">
+	<table class="cart-table">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Size</th>
+				<th>Flavors</th>
+				<th>Toppings</th>
+				<th>Qty</th>
+				<th>Price</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{range .CartItems}}
+			<tr>
+				<td>{{.ProductName}}</td>
+				<td>{{.SizeLabel}}</td>
+				<td>{{.FlavorLabels}}</td>
+				<td>{{.ToppingLabels}}</td>
+				<td>{{.Quantity}}</td>
+				<td>${{printf "%.2f" .TotalPrice}}</td>
+				<td>
+					<form action="/cart/remove" method="POST" style="display:inline;">
+						<input type="hidden" name="cart_item_id" value="{{.ID}}">
+						<button type="submit" class="remove-btn">Remove</button>
+					</form>
+				</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+	<div class="cart-total">
+		<strong>Total: ${{printf "%.2f" .CartTotal}}</strong>
+	</div>
+	<form action="/checkout" method="POST" class="checkout-form">
+		<button type="submit" class="checkout-btn">Proceed to Checkout</button>
+	</form>
+</div>
+{{else}}
+	<p>Your cart is empty.</p>
+{{end}}
+{{end}}

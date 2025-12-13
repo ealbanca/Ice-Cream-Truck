@@ -2,7 +2,7 @@
 <h1>Build Your Own Ice Cream</h1>
 
 {{if .Message}}
-    <div class="message">{{.Message}}</div>
+    <div id="flash-message" class="{{.MessageType}}">{{.Message}}</div>
 {{end}}
 <div class="build-container">
     <form action="/build" method="POST" class="build-form" id="build-form">
@@ -55,4 +55,5 @@
     </form>
 </div>
 <script src="/js/build.js"></script>
+
 {{end}}
