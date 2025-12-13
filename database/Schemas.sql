@@ -97,7 +97,6 @@ VALUES ('Sprinkles', 0.50, '/images/build/Sprinkles.jpg'),
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     product_name VARCHAR(255) NOT NULL,
-    user_id INT REFERENCES users(id),
     size_id INT REFERENCES sizes(id) Not NULL,
     flavor_id1 INT REFERENCES flavors(id) Not NULL,
     flavor_id2 INT REFERENCES flavors(id),
@@ -105,7 +104,6 @@ CREATE TABLE products (
     topping_id1 INT REFERENCES toppings(id) Not NULL,
     topping_id2 INT REFERENCES toppings(id),
     topping_id3 INT REFERENCES toppings(id),
-    quantity INT NOT NULL DEFAULT 1,
     total_price DECIMAL(10, 2) NOT NULL
 );
 -- SQL to create the orders table
