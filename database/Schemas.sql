@@ -107,3 +107,18 @@ CREATE TABLE products (
     topping_id3 INT REFERENCES toppings(id),
     total_price DECIMAL(10, 2) NOT NULL
 );
+-- SQL to create the orders table
+-- Orders table: one row per order
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    total_price DECIMAL(10, 2) NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Order items table: one row per product in an order
+CREATE TABLE order_items (
+    id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES orders(id) ON DELETE CASCADE,
+    product_id INT REFERENCES products(id),
+    quantity INT NOT NULL DEFAULT 1
+);

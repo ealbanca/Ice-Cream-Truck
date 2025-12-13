@@ -1,74 +1,3 @@
-/* Cart Styles */
-.cart-container {
-  max-width: 900px;
-  margin: 3vw auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.10);
-  padding: 2vw 2vw 2vw 2vw;
-}
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2vw;
-  font-family: var(--font-body);
-}
-.cart-table th, .cart-table td {
-  border: 1px solid #ccc;
-  padding: 0.8vw;
-  text-align: center;
-}
-.cart-table th {
-  background-color: var(--color-secondary);
-  color: white;
-  font-weight: bold;
-}
-.cart-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-.cart-table tr:hover {
-  background-color: var(--color-accent);
-  color: white;
-}
-.cart-total {
-  text-align: right;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 1vw;
-  color: var(--color-tertiary);
-}
-.remove-btn {
-  background: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.4em 1em;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-weight: bold;
-  transition: background 0.2s;
-}
-.remove-btn:hover {
-  background: #b71c1c;
-}
-.checkout-form {
-  text-align: right;
-}
-.checkout-btn {
-  background: var(--color-secondary);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.7em 2em;
-  font-family: var(--font-headline);
-  font-weight: bold;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.checkout-btn:hover {
-  background: var(--color-accent);
-}
 /******* Change Box Model ***************/
 html, body {
   margin: 0;
@@ -834,29 +763,111 @@ h1 {
   font-family: var(--font-body);
 }
 
-.build-form button[type="submit"] {
-  align-self: center;
-  background-color: var(--color-secondary);
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-family: var(--font-headline);
-  font-weight: bold;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.build-form button[type="submit"]:hover {
-  background-color: var(--color-accent);
-}
-
 .total-price-display {
   font-weight: bold;
   text-align: center;
   margin-top: 1rem;
   color: var(--color-tertiary);
   font-family: var(--font-headline);
+}
+.button-row {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkout-btn, .build-form button[type="submit"] {
+  display: inline-block;
+  background: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-headline);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  margin-top: 1vw;
+}
+.checkout-btn:hover, .build-form button[type="submit"]:hover {
+  background: var(--color-accent);
+}
+
+
+/* Cart Styles */
+.cart-container {
+  max-width: 900px;
+  margin: 3vw auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.10);
+  padding: 2vw 2vw 2vw 2vw;
+}
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2vw;
+  font-family: var(--font-body);
+}
+.cart-table th, .cart-table td {
+  border: 1px solid #ccc;
+  padding: 0.8vw;
+  text-align: center;
+}
+.cart-table th {
+  background-color: var(--color-secondary);
+  color: white;
+  font-weight: bold;
+}
+.cart-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.cart-table tr:hover {
+  background-color: var(--color-accent);
+  color: white;
+}
+.cart-total {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1vw;
+  color: var(--color-tertiary);
+}
+.remove-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4em 1em;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.remove-btn:hover {
+  background: #b71c1c;
+}
+.checkout-form {
+  text-align: right;
+}
+.checkout-btn {
+  background: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.7em 2em;
+  font-family: var(--font-headline);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.checkout-btn:hover {
+  background: var(--color-accent);
 }
 
 
