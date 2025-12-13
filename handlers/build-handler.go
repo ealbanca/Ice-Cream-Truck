@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -15,8 +16,25 @@ import (
 
 func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 	var user *models.User
+	var guestCartID string
 	if userID, err := GetSessionUserID(r); err == nil {
 		user, _ = models.GetUserByID(userID)
+	} else {
+		// Guest: check for guest_cart_id cookie, or set one
+		c, err := r.Cookie("guest_cart_id")
+		if err == nil {
+			guestCartID = c.Value
+		} else {
+			// Generate a random guest cart ID (timestamp-based for simplicity)
+			guestCartID = strconv.FormatInt(time.Now().UnixNano(), 36)
+			http.SetCookie(w, &http.Cookie{
+				Name:     "guest_cart_id",
+				Value:    guestCartID,
+				Path:     "/",
+				HttpOnly: true,
+				MaxAge:   60 * 60 * 24 * 7, // 1 week
+			})
+		}
 	}
 
 	message := ""
@@ -73,17 +91,7 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 			if err == nil {
 				totalPrice += sizePrice
 			}
-			// Flavor prices (sum, allow repeats)
-			for _, fid := range flavorIDs {
-				if fid == "" {
-					continue
-				}
-				var flavorPrice float64
-				err = config.DB.QueryRow("SELECT COALESCE(flavor_price, 0) FROM flavor WHERE flavor_id = $1", fid).Scan(&flavorPrice)
-				if err == nil {
-					totalPrice += flavorPrice
-				}
-			}
+			// Flavors have no price, so skip price calculation for flavors
 			// Topping prices (sum, allow repeats)
 			for _, tid := range toppingIDs {
 				if tid == "" {
@@ -107,13 +115,41 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 				ToppingID3:  toppingID3,
 				TotalPrice:  totalPrice,
 			}
-			err = models.SaveCustomProduct(product)
+			productID, err := models.SaveCustomProduct(product)
 			if err != nil {
 				message = "Failed to save your custom ice cream."
 				messageType = "error"
+			} else if user != nil {
+				// Add to user's cart order
+				orderID, oerr := models.GetOrCreateCartOrderID(user.ID)
+				if oerr == nil {
+					piErr := models.AddProductToOrderItems(orderID, productID)
+					if piErr == nil {
+						message = "Your custom ice cream has been added to your cart!"
+						messageType = "success"
+					} else {
+						message = "Product saved, but failed to add to cart."
+						messageType = "error"
+					}
+				} else {
+					message = "Product saved, but failed to create cart order."
+					messageType = "error"
+				}
+			} else if guestCartID != "" {
+				// Guest cart: add to guest_carts table
+				piErr := models.AddProductToGuestCart(guestCartID, productID)
+				if piErr == nil {
+					message = "Your custom ice cream has been added to your guest cart!"
+					messageType = "success"
+				} else {
+					// Log the error for debugging
+					fmt.Println("Guest cart add error:", piErr)
+					message = "Product saved, but failed to add to guest cart."
+					messageType = "error"
+				}
 			} else {
-				message = "Your custom ice cream has been saved!"
-				messageType = "success"
+				message = "Product saved, but could not add to cart."
+				messageType = "error"
 			}
 		}
 	}

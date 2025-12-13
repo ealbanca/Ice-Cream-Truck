@@ -111,8 +111,10 @@ CREATE TABLE products (
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
+    guest_cart_id VARCHAR(64),
     total_price DECIMAL(10, 2) NOT NULL,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL DEFAULT 'cart'
 );
 -- Order items table: one row per product in an order
 CREATE TABLE order_items (
@@ -120,4 +122,12 @@ CREATE TABLE order_items (
     order_id INT REFERENCES orders(id) ON DELETE CASCADE,
     product_id INT REFERENCES products(id),
     quantity INT NOT NULL DEFAULT 1
+);
+-- Each guest cart is identified by a guest_cart_id (string), and contains products and quantities
+CREATE TABLE guest_carts (
+    id SERIAL PRIMARY KEY,
+    guest_cart_id VARCHAR(64) NOT NULL,
+    product_id INT REFERENCES products(id),
+    quantity INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
