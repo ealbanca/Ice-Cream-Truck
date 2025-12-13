@@ -101,7 +101,7 @@ CREATE TABLE products (
     flavor_id1 INT REFERENCES flavors(id) Not NULL,
     flavor_id2 INT REFERENCES flavors(id),
     flavor_id3 INT REFERENCES flavors(id),
-    topping_id1 INT REFERENCES toppings(id) Not NULL,
+    topping_id1 INT REFERENCES toppings(id),
     topping_id2 INT REFERENCES toppings(id),
     topping_id3 INT REFERENCES toppings(id),
     total_price DECIMAL(10, 2) NOT NULL
