@@ -98,7 +98,6 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 
 			product := models.CustomProduct{
 				ProductName: "Custom Ice Cream",
-				UserID:      0,
 				SizeID:      sizeID,
 				FlavorID1:   flavorID1,
 				FlavorID2:   flavorID2,
@@ -107,9 +106,6 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 				ToppingID2:  toppingID2,
 				ToppingID3:  toppingID3,
 				TotalPrice:  totalPrice,
-			}
-			if user != nil {
-				product.UserID = user.ID
 			}
 			err = models.SaveCustomProduct(product)
 			if err != nil {
