@@ -1,5 +1,21 @@
 package models
 
+import (
+	"database/sql"
+	"fmt"
+	"strings"
+
+	"github.com/ealbanca/Ice-Cream-Truck/config"
+)
+
+// UpdateCartItemQuantity updates the quantity of a cart item (product row)
+func UpdateCartItemQuantity(itemID int, quantity int) {
+	if quantity < 1 {
+		quantity = 1
+	}
+	config.DB.Exec("UPDATE products SET quantity = $1 WHERE id = $2", quantity, itemID)
+}
+
 type CartItem struct {
 	ID            int
 	ProductName   string
@@ -10,31 +26,79 @@ type CartItem struct {
 	TotalPrice    float64
 }
 
-// Example: In-memory cart for demonstration (replace with DB logic as needed)
-var cartItems []CartItem
-
 func GetCartItems(userID int) []CartItem {
-	// TODO: Replace with DB fetch by userID
-	return cartItems
-}
-
-func AddToCart(item CartItem) {
-	cartItems = append(cartItems, item)
-}
-
-func RemoveFromCart(itemID int) {
-	for i, item := range cartItems {
-		if item.ID == itemID {
-			cartItems = append(cartItems[:i], cartItems[i+1:]...)
-			break
-		}
+	if userID == 0 {
+		return nil
 	}
+	rows, err := config.DB.Query(`
+	   SELECT p.id, p.product_name, s.size_label, 
+			  f1.flavor_name, f2.flavor_name, f3.flavor_name,
+			  t1.topping_name, t2.topping_name, t3.topping_name,
+			  p.quantity, p.total_price
+	   FROM products p
+	   JOIN sizes s ON p.size_id = s.id
+	   LEFT JOIN flavors f1 ON p.flavor_id1 = f1.id
+	   LEFT JOIN flavors f2 ON p.flavor_id2 = f2.id
+	   LEFT JOIN flavors f3 ON p.flavor_id3 = f3.id
+	   LEFT JOIN toppings t1 ON p.topping_id1 = t1.id
+	   LEFT JOIN toppings t2 ON p.topping_id2 = t2.id
+	   LEFT JOIN toppings t3 ON p.topping_id3 = t3.id
+	   WHERE p.user_id = $1
+	   ORDER BY p.id DESC
+   `, userID)
+	if err != nil {
+		fmt.Println("GetCartItems DB error:", err)
+		return nil
+	}
+	defer rows.Close()
+	var items []CartItem
+	for rows.Next() {
+		var c CartItem
+		var flavor1, flavor2, flavor3 sql.NullString
+		var topping1, topping2, topping3 sql.NullString
+		err := rows.Scan(&c.ID, &c.ProductName, &c.SizeLabel, &flavor1, &flavor2, &flavor3, &topping1, &topping2, &topping3, &c.Quantity, &c.TotalPrice)
+		if err != nil {
+			continue
+		}
+		// Combine flavor/topping labels
+		var flavors, toppings []string
+		if flavor1.Valid && flavor1.String != "" {
+			flavors = append(flavors, flavor1.String)
+		}
+		if flavor2.Valid && flavor2.String != "" {
+			flavors = append(flavors, flavor2.String)
+		}
+		if flavor3.Valid && flavor3.String != "" {
+			flavors = append(flavors, flavor3.String)
+		}
+		if topping1.Valid && topping1.String != "" {
+			toppings = append(toppings, topping1.String)
+		}
+		if topping2.Valid && topping2.String != "" {
+			toppings = append(toppings, topping2.String)
+		}
+		if topping3.Valid && topping3.String != "" {
+			toppings = append(toppings, topping3.String)
+		}
+		c.FlavorLabels = strings.Join(flavors, ", ")
+		c.ToppingLabels = strings.Join(toppings, ", ")
+		// Multiply price by quantity for display
+		c.TotalPrice = c.TotalPrice * float64(c.Quantity)
+		items = append(items, c)
+	}
+	return items
 }
 
-func GetCartTotal() float64 {
-	total := 0.0
-	for _, item := range cartItems {
-		total += item.TotalPrice * float64(item.Quantity)
+// RemoveFromCart deletes a product from the user's cart (products table)
+func RemoveFromCart(itemID int) {
+	config.DB.Exec("DELETE FROM products WHERE id = $1", itemID)
+}
+
+func GetCartTotal(userID int) float64 {
+	var total float64
+	err := config.DB.QueryRow("SELECT COALESCE(SUM(total_price * quantity),0) FROM products WHERE user_id = $1", userID).Scan(&total)
+	if err != nil {
+		return 0.0
 	}
 	return total
 }

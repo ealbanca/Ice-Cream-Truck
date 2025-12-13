@@ -10,6 +10,21 @@ import (
 	"github.com/ealbanca/Ice-Cream-Truck/models"
 )
 
+// UpdateCartQuantityHandler updates the quantity of a cart item
+func UpdateCartQuantityHandler(w http.ResponseWriter, r *http.Request) error {
+	if r.Method == http.MethodPost {
+		idStr := r.FormValue("cart_item_id")
+		qtyStr := r.FormValue("quantity")
+		id, _ := strconv.Atoi(idStr)
+		qty, _ := strconv.Atoi(qtyStr)
+		if id > 0 && qty > 0 {
+			models.UpdateCartItemQuantity(id, qty)
+		}
+	}
+	http.Redirect(w, r, "/cart", http.StatusSeeOther)
+	return nil
+}
+
 func CartHandler(w http.ResponseWriter, r *http.Request) error {
 	var user *models.User
 	if userID, err := GetSessionUserID(r); err == nil {
@@ -20,7 +35,7 @@ func CartHandler(w http.ResponseWriter, r *http.Request) error {
 		userID = user.ID
 	}
 	cartItems := models.GetCartItems(userID)
-	cartTotal := models.GetCartTotal()
+	cartTotal := models.GetCartTotal(userID)
 	message := ""
 	messageType := ""
 	tmpl := template.Must(template.ParseFiles(

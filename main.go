@@ -38,6 +38,8 @@ func main() {
 	http.HandleFunc("/management", handlers.ErrorHandler(handlers.LoginHandler))
 	http.HandleFunc("/build", handlers.ErrorHandler(handlers.BuildHandler))
 	http.HandleFunc("/cart", handlers.ErrorHandler(handlers.CartHandler))
+	http.HandleFunc("/cart/remove", handlers.ErrorHandler(handlers.RemoveFromCartHandler))
+	http.HandleFunc("/cart/update-qty", handlers.ErrorHandler(handlers.UpdateCartQuantityHandler))
 
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
