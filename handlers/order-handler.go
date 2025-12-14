@@ -69,16 +69,28 @@ func OrderDetailsHandler(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	order, err := models.GetOrderByID(orderID)
-	if err != nil || !order.UserID.Valid || order.UserID.Int64 != int64(userID) {
+	if err != nil || !order.UserID.Valid {
 		http.NotFound(w, r)
 		return nil
 	}
+
+	user, _ := models.GetUserByID(userID)
+	if user == nil {
+		http.NotFound(w, r)
+		return nil
+	}
+
+	// Allow admins to view any order; users can only view their own
+	if user.UserType != "admin" && order.UserID.Int64 != int64(userID) {
+		http.NotFound(w, r)
+		return nil
+	}
+
 	items, err := models.GetOrderItems(orderID)
 	if err != nil {
 		http.Error(w, "Failed to fetch order items", http.StatusInternalServerError)
 		return nil
 	}
-	user, _ := models.GetUserByID(userID)
 
 	tmpl, err := template.ParseFiles(
 		"views/order/order-details.gohtml",
