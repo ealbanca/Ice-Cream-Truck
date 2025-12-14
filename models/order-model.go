@@ -94,3 +94,22 @@ func GetOrdersByUserID(userID int) ([]Order, error) {
 	}
 	return orders, nil
 }
+
+// GetAllOrders fetches all orders in the database (admin view)
+func GetAllOrders() ([]Order, error) {
+	rows, err := config.DB.Query(`SELECT id, user_id, order_date, total_price, status FROM orders ORDER BY order_date DESC`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var orders []Order
+	for rows.Next() {
+		var o Order
+		if err := rows.Scan(&o.ID, &o.UserID, &o.Date, &o.TotalPrice, &o.Status); err != nil {
+			return nil, err
+		}
+		orders = append(orders, o)
+	}
+	return orders, nil
+}

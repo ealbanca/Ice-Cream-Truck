@@ -15,6 +15,8 @@ import (
 )
 
 func main() {
+	// Admin all orders page
+	http.HandleFunc("/admin/orders", handlers.ErrorHandler(handlers.AdminOrdersHandler))
 	// Load environment variables from .env file (for local development)
 	err := godotenv.Load()
 	if err != nil {
