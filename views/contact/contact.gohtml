@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.addEventListener('input', function() {
             var d = new Date(this.value);
             // Only show alert if the date is valid and the day is Sunday (0)
-            if (this.value && d.getDay() === 0) {
+            if (this.value && d.getDay() === 6) {
                 alert('Scheduling on Sunday is not allowed. Please select another date.');
                 this.value = '';
             }
@@ -60,7 +60,7 @@ function setTimeOptions() {
     let date = dateInput.value;
     let day = date ? new Date(date).getDay() : null;
     let startTimes = [], endTimes = [];
-    if (day === 7) { // Saturday
+    if (day === 5) { // Saturday (JS: 5)
         for (let h = 10; h <= 21; h++) {
             let label = (h < 12 ? h + ' am' : (h === 12 ? '12 pm' : (h-12) + ' pm'));
             let val = (h < 10 ? '0' : '') + h + ':00';
@@ -71,7 +71,7 @@ function setTimeOptions() {
             let val = (h < 10 ? '0' : '') + h + ':00';
             endTimes.push({val, label});
         }
-    } else if (day >= 1 && day <= 5) { // Mon-Fri (Mon=1, Fri=5)
+    } else if (day >= 0 && day <= 5) { // Mon-Fri (Mon=1, Fri=5)
         for (let h = 17; h <= 21; h++) {
             let label = (h === 12 ? '12 pm' : (h > 12 ? (h-12) + ' pm' : h + ' am'));
             let val = h + ':00';
@@ -82,7 +82,7 @@ function setTimeOptions() {
             let val = h + ':00';
             endTimes.push({val, label});
         }
-    } else { // Sunday or no date
+    } else { // Sunday (0) or no date
         startTimes = [{val: '', label: 'Select a date first'}];
         endTimes = [{val: '', label: 'Select a date first'}];
     }
