@@ -68,11 +68,11 @@ func OrderDetailsHandler(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	order, err := models.GetOrderByID(orderID)
-	if err != nil || order.UserID != userID {
-		http.NotFound(w, r)
-		return nil
-	}
+	   order, err := models.GetOrderByID(orderID)
+	   if err != nil || (!order.UserID.Valid || order.UserID.Int64 != int64(userID)) {
+		   http.NotFound(w, r)
+		   return nil
+	   }
 	items, err := models.GetOrderItems(orderID)
 	if err != nil {
 		http.Error(w, "Failed to fetch order items", http.StatusInternalServerError)

@@ -339,3 +339,40 @@ func AddProductToOrderItems(orderID, productID int) error {
 	_, err := config.DB.Exec("INSERT INTO order_items (order_id, product_id, quantity) VALUES ($1, $2, 1)", orderID, productID)
 	return err
 }
+
+// GetProductsByUserID returns all products created by a specific user
+func GetProductsByUserID(userID int) ([]CustomProduct, error) {
+	rows, err := config.DB.Query(`
+		SELECT id, product_name, size_id, flavor_id1, flavor_id2, flavor_id3, topping_id1, topping_id2, topping_id3, total_price
+		FROM products
+		WHERE id IN (
+			SELECT product_id FROM order_items oi
+			JOIN orders o ON oi.order_id = o.id
+			WHERE o.user_id = $1
+		)
+		ORDER BY id DESC`, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var products []CustomProduct
+	for rows.Next() {
+		var p CustomProduct
+		err := rows.Scan(&p.ID, &p.ProductName, &p.SizeID, &p.FlavorID1, &p.FlavorID2, &p.FlavorID3, &p.ToppingID1, &p.ToppingID2, &p.ToppingID3, &p.TotalPrice)
+		if err == nil {
+			products = append(products, p)
+		}
+	}
+	return products, nil
+}
+
+// DeleteCustomProduct deletes a product from the products table by ID
+func DeleteCustomProduct(productID int) error {
+	// Remove from order_items first to avoid FK constraint errors
+	_, _ = config.DB.Exec("DELETE FROM order_items WHERE product_id = $1", productID)
+	// Remove from guest_carts as well
+	_, _ = config.DB.Exec("DELETE FROM guest_carts WHERE product_id = $1", productID)
+	// Now delete the product
+	_, err := config.DB.Exec("DELETE FROM products WHERE id = $1", productID)
+	return err
+}
