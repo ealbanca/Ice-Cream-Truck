@@ -32,6 +32,16 @@
             {{end}}
         </tbody>
     </table>
-        <a href="/account/orders" class="back-link">Back to Orders</a>
+        {{if .IsAdmin}}
+            {{if .IsAllOrders}}
+                <a href="/admin/orders" class="back-link">Back to All Orders</a>
+            {{else if .IsMyOrders}}
+                <a href="/admin/my-orders" class="back-link">Back to My Orders</a>
+            {{else}}
+                <a href="/account/orders" class="back-link">Back to Orders</a>
+            {{end}}
+        {{else}}
+            <a href="/account/orders" class="back-link">Back to Orders</a>
+        {{end}}
 </div>
 {{end}}

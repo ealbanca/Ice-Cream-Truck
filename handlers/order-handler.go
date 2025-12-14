@@ -105,18 +105,34 @@ func OrderDetailsHandler(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
+	// Determine admin and all/my orders context
+	isAdmin := user.UserType == "admin"
+	isAllOrders := false
+	isMyOrders := false
+	// Query param approach for robust navigation
+	if isAdmin && r.URL.Query().Get("all") == "1" {
+		isAllOrders = true
+	} else if isAdmin && r.URL.Query().Get("my") == "1" {
+		isMyOrders = true
+	}
 	data := struct {
-		Title string
-		Year  int
-		User  *models.User
-		Order *models.Order
-		Items []models.OrderItem
+		Title       string
+		Year        int
+		User        *models.User
+		Order       *models.Order
+		Items       []models.OrderItem
+		IsAdmin     bool
+		IsAllOrders bool
+		IsMyOrders  bool
 	}{
-		Title: "Order Details",
-		Year:  time.Now().Year(),
-		User:  user,
-		Order: order,
-		Items: items,
+		Title:       "Order Details",
+		Year:        time.Now().Year(),
+		User:        user,
+		Order:       order,
+		Items:       items,
+		IsAdmin:     isAdmin,
+		IsAllOrders: isAllOrders,
+		IsMyOrders:  isMyOrders,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
 	return nil
@@ -157,6 +173,50 @@ func OrdersHandler(w http.ResponseWriter, r *http.Request) error {
 		Orders []models.Order
 	}{
 		Title:  "Your Orders",
+		Year:   time.Now().Year(),
+		User:   user,
+		Orders: orders,
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+	return nil
+}
+
+// AdminMyOrdersHandler serves the admin's own orders page
+func AdminMyOrdersHandler(w http.ResponseWriter, r *http.Request) error {
+	userID, err := GetSessionUserID(r)
+	if err != nil || userID == 0 {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return nil
+	}
+	user, _ := models.GetUserByID(userID)
+	if user == nil || user.UserType != "admin" {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return nil
+	}
+	orders, err := models.GetOrdersByUserID(userID)
+	if err != nil {
+		http.Error(w, "Failed to fetch orders", http.StatusInternalServerError)
+		return nil
+	}
+	tmpl, err := template.ParseFiles(
+		"views/order/orders.gohtml",
+		"views/layouts/layout.gohtml",
+		"views/partials/head.gohtml",
+		"views/partials/header.gohtml",
+		"views/partials/navigation.gohtml",
+		"views/partials/footer.gohtml",
+	)
+	if err != nil {
+		http.Error(w, "Template error", http.StatusInternalServerError)
+		return nil
+	}
+	data := struct {
+		Title  string
+		Year   int
+		User   *models.User
+		Orders []models.Order
+	}{
+		Title:  "My Orders",
 		Year:   time.Now().Year(),
 		User:   user,
 		Orders: orders,

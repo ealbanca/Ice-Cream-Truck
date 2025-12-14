@@ -21,6 +21,8 @@ func main() {
 	http.HandleFunc("/ingredients/delete/", handlers.ErrorHandler(handlers.DeleteIngredientHandler))
 	// Admin all orders page
 	http.HandleFunc("/admin/orders", handlers.ErrorHandler(handlers.AdminOrdersHandler))
+	// Admin my orders page
+	http.HandleFunc("/admin/my-orders", handlers.ErrorHandler(handlers.AdminMyOrdersHandler))
 	// Load environment variables from .env file (for local development)
 	err := godotenv.Load()
 	if err != nil {

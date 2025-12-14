@@ -24,7 +24,13 @@
                 <td>{{.Status}}</td>
                                 <td>
                                     {{if .UserID.Valid}}
-                                        <a href="/order/{{.ID}}">View Details</a>
+                                        {{if eq $.Title "All Orders"}}
+                                            <a href="/order/{{.ID}}?all=1">View Details</a>
+                                        {{else if eq $.Title "My Orders"}}
+                                            <a href="/order/{{.ID}}?my=1">View Details</a>
+                                        {{else}}
+                                            <a href="/order/{{.ID}}">View Details</a>
+                                        {{end}}
                                     {{else}}
                                         <span title="Guest order - no details">N/A</span>
                                     {{end}}
