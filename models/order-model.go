@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/ealbanca/Ice-Cream-Truck/config"
@@ -8,7 +9,7 @@ import (
 
 type Order struct {
 	ID         int
-	UserID     int
+	UserID     sql.NullInt64
 	Date       time.Time
 	TotalPrice float64
 	Status     string

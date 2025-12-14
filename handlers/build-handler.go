@@ -17,8 +17,12 @@ import (
 func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 	var user *models.User
 	var guestCartID string
+	var userProducts []models.CustomProduct
 	if userID, err := GetSessionUserID(r); err == nil {
 		user, _ = models.GetUserByID(userID)
+		if user != nil {
+			userProducts, _ = models.GetProductsByUserID(user.ID)
+		}
 	} else {
 		// Guest: check for guest_cart_id cookie, or set one
 		c, err := r.Cookie("guest_cart_id")
@@ -163,23 +167,25 @@ func BuildHandler(w http.ResponseWriter, r *http.Request) error {
 		filepath.Join("views", "build", "build.gohtml"),
 	))
 	data := struct {
-		Title       string
-		Year        int
-		User        *models.User
-		Sizes       []models.Size
-		Flavors     []models.Flavor
-		Toppings    []models.Topping
-		Message     string
-		MessageType string
+		Title        string
+		Year         int
+		User         *models.User
+		Sizes        []models.Size
+		Flavors      []models.Flavor
+		Toppings     []models.Topping
+		UserProducts []models.CustomProduct
+		Message      string
+		MessageType  string
 	}{
-		Title:       "Build Your Own Ice Cream",
-		Year:        time.Now().Year(),
-		User:        user,
-		Sizes:       sizes,
-		Flavors:     flavors,
-		Toppings:    toppings,
-		Message:     message,
-		MessageType: messageType,
+		Title:        "Build Your Own Ice Cream",
+		Year:         time.Now().Year(),
+		User:         user,
+		Sizes:        sizes,
+		Flavors:      flavors,
+		Toppings:     toppings,
+		UserProducts: userProducts,
+		Message:      message,
+		MessageType:  messageType,
 	}
 	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
 		return err

@@ -522,7 +522,7 @@ label span {
     font-family: var(--font-headline);
 }
 
-.Account-Management, .orders-container, .order-details-container {
+.Account-Management, .orders-container, .order-details-container, .creations-container {
     max-width: 800px;
     margin: 4vw auto;
     padding: 2vw 3vw;
@@ -532,7 +532,7 @@ label span {
     font-family: var(--font-body);
 }
 
-.management-table, .orders-table, .order-items-table {
+.management-table, .orders-table, .order-items-table, .creations-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 2vw;
@@ -542,23 +542,23 @@ label span {
     color: var(--color-accent);
     text-decoration: none;
 }
-.management-table td a:visited, .orders-table td a:visited, .order-items-table td a:visited {
+.management-table td a:visited, .orders-table td a:visited, .order-items-table td a:visited, .creations-table td a:visited {
     text-decoration: none;
 }
 
 .management-table th, .orders-table th,
-.management-table td, .orders-table td, .order-items-table th, .order-items-table td {
+.management-table td, .orders-table td, .order-items-table th, .order-items-table td, .creations-table th, .creations-table td {
     border: 1px solid #ccc;
     padding: 0.8vw;
     text-align: left;
     font-family: var(--font-body);
 }
-.management-table th, .orders-table th, .order-items-table th {
+.management-table th, .orders-table th, .order-items-table th, .creations-table th {
     background-color: var(--color-secondary);
     color: white;
     font-weight: bold;
 }
-.management-table tr:nth-child(even), .orders-table tr:nth-child(even), .order-items-table tr:nth-child(even) {
+.management-table tr:nth-child(even), .orders-table tr:nth-child(even), .order-items-table tr:nth-child(even), .creations-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 .management-table tr:hover,
@@ -567,7 +567,7 @@ label span {
 .orders-table tr:hover td,
 .orders-table tr:hover a, .order-items-table tr:hover,
 .order-items-table tr:hover td,
-.order-items-table tr:hover a {
+.order-items-table tr:hover a{
     background-color: var(--color-accent);
     color: white !important;
 }
@@ -910,3 +910,29 @@ h1 {
 .back-link:hover {
   text-decoration: underline;
 }
+
+/* Creations Table Styles */
+
+/* Action links for creations table */
+.action-link {
+  display: flex;
+  margin: 0 0.2em;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1em;
+  font-weight: 600;
+  gap: 0.5em;
+  align-items: center;
+}
+.delete-link {
+  background: #e74c3c;
+  color: white;
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.delete-link:hover {
+  background: #c0392b;
+  color: white;
+}
+

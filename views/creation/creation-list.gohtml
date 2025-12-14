@@ -1,0 +1,40 @@
+{{define "content"}}
+<div class="creations-container">
+    <h1>Your Creations</h1>
+
+    {{if .Creations}}
+    <table class="creations-table">
+        <thead>
+            <tr>
+                <th>Creation ID</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Flavors</th>
+                <th>Toppings</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Creations}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Size}}</td>
+                <td>{{.Flavors}}</td>
+                <td>{{.Toppings}}</td>
+                <td>{{.DateCreated}}</td>
+                <td>
+                <div class="action-link">
+                    <a class="delete-link" href="/creation/{{.ID}}/delete" onclick="return confirm('Are you sure you want to delete this creation?');">Delete</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    {{else}}
+    <p>You have no creations yet.</p>
+    {{end}}
+</div>
+{{end}}

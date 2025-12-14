@@ -1,12 +1,13 @@
 {{define "content"}}
 <div class="orders-container">
-    <h1>Your Orders</h1>
+        <h1>{{.Title}}</h1>
 
     {{if .Orders}}
     <table class="orders-table">
         <thead>
             <tr>
                 <th>Order ID</th>
+                <th>User</th>
                 <th>Date</th>
                 <th>Total Price</th>
                 <th>Status</th>
@@ -17,10 +18,17 @@
             {{range .Orders}}
             <tr>
                 <td>{{.ID}}</td>
+                <td>{{if .UserID.Valid}}{{.UserID.Int64}}{{else}}Guest{{end}}</td>
                 <td>{{.Date}}</td>
                 <td>${{printf "%.2f" .TotalPrice}}</td>
                 <td>{{.Status}}</td>
-                <td><a href="/order/{{.ID}}">View Details</a></td>
+                                <td>
+                                    {{if .UserID.Valid}}
+                                        <a href="/order/{{.ID}}">View Details</a>
+                                    {{else}}
+                                        <span title="Guest order - no details">N/A</span>
+                                    {{end}}
+                                </td>
             </tr>
             {{end}}
         </tbody>
