@@ -43,11 +43,11 @@ func main() {
 	http.HandleFunc("/cart/remove", handlers.ErrorHandler(handlers.RemoveFromCartHandler))
 	http.HandleFunc("/cart/update-qty", handlers.ErrorHandler(handlers.UpdateCartQuantityHandler))
 	http.HandleFunc("/checkout", handlers.ErrorHandler(handlers.CheckoutHandler))
-	// Orders page (user's orders)
 	http.HandleFunc("/account/orders", handlers.ErrorHandler(handlers.OrdersHandler))
-	// User creations page
 	http.HandleFunc("/account/creations", handlers.ErrorHandler(handlers.CreationsHandler))
-	// Delete creation
+	http.HandleFunc("/admin/ingredients", handlers.ErrorHandler(handlers.ManageIngredientsHandler))
+	// Route for editing an ingredient
+	http.HandleFunc("/ingredients/edit/", handlers.ErrorHandler(handlers.EditIngredientHandler))
 	http.HandleFunc("/creation/", func(w http.ResponseWriter, r *http.Request) {
 		if len(r.URL.Path) > len("/creation/") && r.Method == http.MethodGet && len(r.URL.Path) > len("/creation/") && r.URL.Path[len(r.URL.Path)-len("/delete"):] == "/delete" {
 			handlers.ErrorHandler(handlers.CreationDeleteHandler)(w, r)

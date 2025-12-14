@@ -1,0 +1,25 @@
+{{define "content"}}
+<div class="ingredient-container">
+    <h1>Edit Ingredient - {{.Ingredient.Name}}</h1>
+    
+    <form action="/ingredients/edit/{{.Ingredient.ID}}" method="POST" class="ingredient-form">
+        {{if eq .Ingredient.Type "Flavor"}}
+            <label for="flavor_name">Flavor Name:</label>
+            <input type="text" id="flavor_name" name="flavor_name" value="{{.Ingredient.Name}}" required>
+
+            <label for="flavor_img">Flavor Image URL:</label>
+            <input type="text" id="flavor_img" name="flavor_img" value="{{.Ingredient.Img}}">
+        {{else if eq .Ingredient.Type "Topping"}}
+            <label for="topping_name">Topping Name:</label>
+            <input type="text" id="topping_name" name="topping_name" value="{{.Ingredient.Name}}" required>
+
+            <label for="additional_price">Additional Price:</label>
+            <input type="number" step="0.01" id="additional_price" name="additional_price" value="{{.Ingredient.Price}}" required>
+
+            <label for="topping_img">Topping Image URL:</label>
+            <input type="text" id="topping_img" name="topping_img" value="{{.Ingredient.Img}}">
+        {{end}}
+        <button type="submit" class="submit-button">Update Ingredient</button>
+    </form>
+</div>
+{{end}}

@@ -1,0 +1,31 @@
+{{define "content"}}
+<div class= "ingredients-management-container">
+    <h1>Manage ingredients</h1>
+    <a href="/ingredients/add" class="add-ingredient-button">Add New Ingredient</a>
+    <table class="ingredients-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Ingredients}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Type}}</td>
+                <td>
+                <div class="action-link">
+                    <a href="/ingredients/edit/{{.ID}}" class="edit-link">Edit</a>
+                    <a href="/ingredients/delete/{{.ID}}" class=" delete-link">Delete</a>
+                </div>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}

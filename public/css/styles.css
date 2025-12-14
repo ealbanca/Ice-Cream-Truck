@@ -522,7 +522,7 @@ label span {
     font-family: var(--font-headline);
 }
 
-.Account-Management, .orders-container, .order-details-container, .creations-container {
+.Account-Management, .orders-container, .order-details-container, .creations-container, .ingredients-management-container, .ingredient-container {
     max-width: 800px;
     margin: 4vw auto;
     padding: 2vw 3vw;
@@ -532,13 +532,13 @@ label span {
     font-family: var(--font-body);
 }
 
-.management-table, .orders-table, .order-items-table, .creations-table {
+.management-table, .orders-table, .order-items-table, .creations-table, .ingredients-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 2vw;
 }
 
-.management-table td a, .orders-table td a, .order-items-table td a {
+.management-table td a, .orders-table td a, .order-items-table td a, .creations-table td a {
     color: var(--color-accent);
     text-decoration: none;
 }
@@ -547,18 +547,18 @@ label span {
 }
 
 .management-table th, .orders-table th,
-.management-table td, .orders-table td, .order-items-table th, .order-items-table td, .creations-table th, .creations-table td {
+.management-table td, .orders-table td, .order-items-table th, .order-items-table td, .creations-table th, .creations-table td, .ingredients-table th, .ingredients-table td {
     border: 1px solid #ccc;
     padding: 0.8vw;
     text-align: left;
     font-family: var(--font-body);
 }
-.management-table th, .orders-table th, .order-items-table th, .creations-table th {
+.management-table th, .orders-table th, .order-items-table th, .creations-table th, .ingredients-table th {
     background-color: var(--color-secondary);
     color: white;
     font-weight: bold;
 }
-.management-table tr:nth-child(even), .orders-table tr:nth-child(even), .order-items-table tr:nth-child(even), .creations-table tr:nth-child(even) {
+.management-table tr:nth-child(even), .orders-table tr:nth-child(even), .order-items-table tr:nth-child(even), .creations-table tr:nth-child(even), .ingredients-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 .management-table tr:hover,
@@ -590,11 +590,11 @@ h1 {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     font-family: var(--font-body);
 }
-.edit-account-form, .checkout-container form {
+.edit-account-form, .checkout-container form, .ingredient-form {
     display: flex;
     flex-direction: column;
 }
-.edit-account-form label, .checkout-container form label {
+.edit-account-form label, .checkout-container form label, .ingredient-form label {
     margin-bottom: 0.5vw;
     font-weight: bold;
     color: var(--color-primary);
@@ -602,14 +602,14 @@ h1 {
 .edit-account-form input[type="text"],
 .edit-account-form input[type="email"],
 .edit-account-form input[type="number"],
-.edit-account-form input[type="password"], .checkout-container form input{
+.edit-account-form input[type="password"], .checkout-container form input, .ingredient-form input{
     padding: 0.7vw;
     margin-bottom: 1.5vw;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: var(--font-body);
 }
-.edit-account-form button, .checkout-container form button {
+.edit-account-form button, .checkout-container form button, .ingredient-form button {
     background-color: var(--color-secondary);
     color: white;
     padding: 0.7vw;
@@ -620,7 +620,7 @@ h1 {
     cursor: pointer;
     margin-top: 1vw;
 }
-.edit-account-form button:hover, .checkout-container form button:hover {
+.edit-account-form button:hover, .checkout-container form button:hover, .ingredient-form button:hover {
     background-color: var(--color-accent);
 }
 
@@ -924,6 +924,17 @@ h1 {
   gap: 0.5em;
   align-items: center;
 }
+.edit-link {
+  background: var(--color-accent);
+  color: white;
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.edit-link:hover {
+  background: var(--color-tertiary);
+  color: white;
+}
 .delete-link {
   background: #e74c3c;
   color: white;
@@ -936,3 +947,20 @@ h1 {
   color: white;
 }
 
+/* Ingredients Table Styles */
+
+.add-ingredient-button{
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-headline);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1vw;
+    text-decoration: none;
+}
+.add-ingredient-button:hover {
+    background-color: var(--color-accent);
+}
