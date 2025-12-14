@@ -581,7 +581,7 @@ h1 {
     margin-top: 2vw;
     margin-bottom: 2vw;
 }
-.edit-account-container, .checkout-container {
+.edit-account-container, .checkout-container, .add-ingredient {
     max-width: 500px;
     margin: 2vw auto;
     padding: 2vw 3vw;
@@ -590,11 +590,11 @@ h1 {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     font-family: var(--font-body);
 }
-.edit-account-form, .checkout-container form, .ingredient-form {
+.edit-account-form, .checkout-container form, .ingredient-form, .add-ingredient-form {
     display: flex;
     flex-direction: column;
 }
-.edit-account-form label, .checkout-container form label, .ingredient-form label {
+.edit-account-form label, .checkout-container form label, .ingredient-form label, .add-ingredient-form label {
     margin-bottom: 0.5vw;
     font-weight: bold;
     color: var(--color-primary);
@@ -602,14 +602,14 @@ h1 {
 .edit-account-form input[type="text"],
 .edit-account-form input[type="email"],
 .edit-account-form input[type="number"],
-.edit-account-form input[type="password"], .checkout-container form input, .ingredient-form input{
+.edit-account-form input[type="password"], .checkout-container form input, .ingredient-form input, .add-ingredient-form input, .add-ingredient-form select {
     padding: 0.7vw;
     margin-bottom: 1.5vw;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: var(--font-body);
 }
-.edit-account-form button, .checkout-container form button, .ingredient-form button {
+.edit-account-form button, .checkout-container form button, .ingredient-form button, .add-ingredient-form button {
     background-color: var(--color-secondary);
     color: white;
     padding: 0.7vw;
@@ -620,7 +620,7 @@ h1 {
     cursor: pointer;
     margin-top: 1vw;
 }
-.edit-account-form button:hover, .checkout-container form button:hover, .ingredient-form button:hover {
+.edit-account-form button:hover, .checkout-container form button:hover, .ingredient-form button:hover, .add-ingredient-form button:hover {
     background-color: var(--color-accent);
 }
 

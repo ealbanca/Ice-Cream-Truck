@@ -71,3 +71,30 @@ func GetIngredientByID(id int) (Ingredient, error) {
 	}
 	return i, err
 }
+
+// DeleteIngredientByID deletes a flavor or topping by ID
+func DeleteIngredientByID(id int) error {
+	// Try to delete from flavors
+	res, err := config.DB.Exec("DELETE FROM flavors WHERE id = $1", id)
+	if err == nil {
+		count, _ := res.RowsAffected()
+		if count > 0 {
+			return nil
+		}
+	}
+	// Try to delete from toppings
+	_, err = config.DB.Exec("DELETE FROM toppings WHERE id = $1", id)
+	return err
+}
+
+// AddFlavor inserts a new flavor into the flavors table
+func AddFlavor(name, img string) error {
+	_, err := config.DB.Exec("INSERT INTO flavors (flavor_name, falvor_img) VALUES ($1, $2)", name, img)
+	return err
+}
+
+// AddTopping inserts a new topping into the toppings table
+func AddTopping(name string, price float64, img string) error {
+	_, err := config.DB.Exec("INSERT INTO toppings (topping_name, additional_price, topping_img) VALUES ($1, $2, $3)", name, price, img)
+	return err
+}

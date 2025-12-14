@@ -15,6 +15,10 @@ import (
 )
 
 func main() {
+	// Route for adding a new ingredient
+	http.HandleFunc("/ingredients/add", handlers.ErrorHandler(handlers.AddIngredientHandler))
+	// Route for deleting an ingredient
+	http.HandleFunc("/ingredients/delete/", handlers.ErrorHandler(handlers.DeleteIngredientHandler))
 	// Admin all orders page
 	http.HandleFunc("/admin/orders", handlers.ErrorHandler(handlers.AdminOrdersHandler))
 	// Load environment variables from .env file (for local development)
