@@ -69,7 +69,7 @@ func OrderDetailsHandler(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	order, err := models.GetOrderByID(orderID)
-	if err != nil || order.UserID != userID {
+	if err != nil || !order.UserID.Valid || order.UserID.Int64 != int64(userID) {
 		http.NotFound(w, r)
 		return nil
 	}

@@ -32,10 +32,6 @@
             {{end}}
         </tbody>
     </table>
-        {{if and .User .User.UserType (eq .User.UserType "admin") .IsAdminView}}
-            <a href="/admin/orders" class="back-link">Back to Orders</a>
-        {{else}}
-            <a href="/account/orders" class="back-link">Back to Orders</a>
-        {{end}}
+        <a href="/account/orders" class="back-link">Back to Orders</a>
 </div>
 {{end}}
