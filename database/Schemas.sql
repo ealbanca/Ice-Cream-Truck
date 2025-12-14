@@ -29,7 +29,8 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(20),
     password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_type VARCHAR(20) NOT NULL DEFAULT 'customer'
 );
 -- SQL to create the products tables
 -- SQL to create the sizes table

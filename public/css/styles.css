@@ -799,6 +799,7 @@ h1 {
 
 
 /* Cart Styles */
+
 .cart-container {
   max-width: 900px;
   margin: 3vw auto;
@@ -806,6 +807,10 @@ h1 {
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(25, 118, 210, 0.10);
   padding: 2vw 2vw 2vw 2vw;
+  color: var(--color-primary);
+  text-align: center;
+  justify-content: center;
+  font-family: var(--font-body);
 }
 .cart-table {
   width: 100%;

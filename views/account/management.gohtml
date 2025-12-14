@@ -25,6 +25,28 @@
             <td>Remove your account permanently.</td>
         </tr>
     </table>
+
+
+{{if eq .User.UserType "admin"}}
+<div class="Admin-Management">
+    <h2>Admin Management</h2>
+
+    <table class="management-table">
+        <tr>
+            <td><a href="/admin/ingredients">Manage Ingredients</a></td>
+            <td>Add, edit, or remove ice cream ingredients.</td>
+        </tr>
+        <tr>
+            <td><a href="/admin/orders">View All Orders</a></td>
+            <td>Access and manage all customer orders.</td>
+        </tr>
+        <tr>
+            <td><a href="/admin/users">User Management</a></td>
+            <td>View and manage user accounts.</td>
+        </tr>
+    </table>
+</div>
 </div>
 
+{{end}}
 {{end}}

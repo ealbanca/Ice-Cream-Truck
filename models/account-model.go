@@ -18,6 +18,7 @@ type User struct {
 	Phone     string
 	Password  string // Plain password only for registration, not stored
 	CreatedAt time.Time
+	UserType  string
 }
 
 // Register a new user with hashed password
@@ -49,8 +50,8 @@ func (u *User) Register() error {
 	if err != nil {
 		return err
 	}
-	query := `INSERT INTO users (name, lastname, username, email, phone, password_hash, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, created_at`
-	err = config.DB.QueryRow(query, u.Name, u.Lastname, u.Username, u.Email, u.Phone, string(hash), time.Now()).Scan(&u.ID, &u.CreatedAt)
+	query := `INSERT INTO users (name, lastname, username, email, phone, password_hash, created_at, user_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, created_at, user_type`
+	err = config.DB.QueryRow(query, u.Name, u.Lastname, u.Username, u.Email, u.Phone, string(hash), time.Now(), u.UserType).Scan(&u.ID, &u.CreatedAt, &u.UserType)
 	return err
 }
 
@@ -58,8 +59,8 @@ func (u *User) Register() error {
 func AuthenticateUser(db *sql.DB, usernameOrEmail, password string) (*User, error) {
 	var u User
 	var hash string
-	query := `SELECT id, name, lastname, username, email, phone, password_hash, created_at FROM users WHERE username=$1 OR email=$1`
-	err := db.QueryRow(query, usernameOrEmail).Scan(&u.ID, &u.Name, &u.Lastname, &u.Username, &u.Email, &u.Phone, &hash, &u.CreatedAt)
+	query := `SELECT id, name, lastname, username, email, phone, password_hash, created_at, user_type FROM users WHERE username=$1 OR email=$1`
+	err := db.QueryRow(query, usernameOrEmail).Scan(&u.ID, &u.Name, &u.Lastname, &u.Username, &u.Email, &u.Phone, &hash, &u.CreatedAt, &u.UserType)
 	if err != nil {
 		return nil, err
 	}
@@ -77,8 +78,8 @@ func RegisterUser(user *User) error {
 // GetUserByID retrieves a user by their ID
 func GetUserByID(id int) (*User, error) {
 	var u User
-	query := `SELECT id, name, lastname, username, email, phone, created_at FROM users WHERE id = $1`
-	err := config.DB.QueryRow(query, id).Scan(&u.ID, &u.Name, &u.Lastname, &u.Username, &u.Email, &u.Phone, &u.CreatedAt)
+	query := `SELECT id, name, lastname, username, email, phone, created_at, user_type FROM users WHERE id = $1`
+	err := config.DB.QueryRow(query, id).Scan(&u.ID, &u.Name, &u.Lastname, &u.Username, &u.Email, &u.Phone, &u.CreatedAt, &u.UserType)
 	if err != nil {
 		return nil, err
 	}
