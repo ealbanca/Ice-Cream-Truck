@@ -41,6 +41,11 @@ func main() {
 	http.HandleFunc("/cart/remove", handlers.ErrorHandler(handlers.RemoveFromCartHandler))
 	http.HandleFunc("/cart/update-qty", handlers.ErrorHandler(handlers.UpdateCartQuantityHandler))
 	http.HandleFunc("/checkout", handlers.ErrorHandler(handlers.CheckoutHandler))
+	// Orders page (user's orders)
+	http.HandleFunc("/account/orders", handlers.ErrorHandler(handlers.OrdersHandler))
+	// Order details page
+	http.HandleFunc("/order/", handlers.ErrorHandler(handlers.OrderDetailsHandler))
+
 	// Serve static files from public directory
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("public/css"))))
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("public/js"))))

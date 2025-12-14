@@ -7,7 +7,7 @@
 
 <p class="checkout-total">Total: ${{printf "%.2f" .TotalPrice}}</p>
 
-<form action="/checkout" method="post">
+<form action="/checkout" method="post" class="checkout-form">
     <input type="hidden" name="order_id" value="{{.OrderID}}" />
     <label for="full_name">Full Name <span>*</span></label>
     <input type="text" id="full_name" name="full_name" value="{{.FullName}}" required />
