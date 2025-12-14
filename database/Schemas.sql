@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS events (
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     date TIMESTAMP NOT NULL,
+    start_time VARCHAR(10) NOT NULL,
+    end_time VARCHAR(10) NOT NULL,
     description TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

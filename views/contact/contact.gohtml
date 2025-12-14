@@ -20,41 +20,10 @@
     <input type="tel" id="event-phone" name="phone" required value="{{if .User}}{{.User.Phone}}{{end}}">
     <label for="event-date">Date:</label>
     <input type="date" id="event-date" name="date" required>
-    <label for="event-time">Time:</label>
-    <input type="time" id="event-time" name="time" required>
-    <label for="event-description">Description:</label>
-    <textarea id="event-description" rows="6" name="description" required></textarea>
-    <button type="submit">Schedule Event</button>
-</form>
-    </div>
-</section>
-
-<section class="contact-box">
-<div class="contact-section">
-    <h2>We'd Love to Hear From You!</h2>
-    <div class="message-about">
-   <p>Whether you are planning an event, requesting a neighborhood visit, or simply have a question, we’re here to help. Reach out using the form below and our family will get back to you as soon as possible.</p>
-    </div>
-</div>
-<section class="contact-form-section">
-    <form class="contact-form" action="#" method="POST">
-        <label for="name">Name <span>*</span></label>
-        <input type="text" id="name" name="name" required value="{{if .User}}{{.User.Name}}{{end}}">
-
-        <label for="email">Email <span>*</span></label>
-        <input type="email" id="email" name="email" required value="{{if .User}}{{.User.Email}}{{end}}">
-
-        <label for="phone">Phone Number (optional)</label>
-        <input type="tel" id="phone" name="phone" value="{{if .User}}{{.User.Phone}}{{end}}">
-
-        <label for="reason">How can we help? <span>*</span></label>
-        <select id="reason" name="reason" required>
-            <option value="">Select an option</option>
-            <option value="feedback">Feedback</option>
-            <option value="neighborhood">Neighborhood visit request</option>
-            <option value="general">General question</option>
-            <option value="business">Business inquiry</option>
-        </select>
+    <label for="event-start-time">Start Time:</label>
+    <select id="event-start-time" name="start_time" required></select>
+    <label for="event-end-time">End Time:</label>
+    <select id="event-end-time" name="end_time" required></select>
 
         <label for="message">Your Message <span>*</span></label>
         <textarea id="yourmessage" name="message" rows="6" required></textarea>
@@ -65,6 +34,64 @@
     </section>
 </section>
 <script src="/js/contact.js"></script>
+<script>
+// Disable Sundays in the date picker
+document.addEventListener('DOMContentLoaded', function() {
+    var dateInput = document.getElementById('event-date');
+    if (dateInput) {
+        dateInput.addEventListener('input', function() {
+            var d = new Date(this.value);
+            // Only show alert if the date is valid and the day is Sunday (0)
+            if (this.value && d.getDay() === 0) {
+                alert('Scheduling on Sunday is not allowed. Please select another date.');
+                this.value = '';
+            }
+        });
+    }
+});
+</script>
+<script>
+// Dynamically populate start/end time options based on day
+function setTimeOptions() {
+    const dateInput = document.getElementById('event-date');
+    const startSelect = document.getElementById('event-start-time');
+    const endSelect = document.getElementById('event-end-time');
+    if (!dateInput || !startSelect || !endSelect) return;
+    let date = dateInput.value;
+    let day = date ? new Date(date).getDay() : null;
+    let startTimes = [], endTimes = [];
+    if (day === 7) { // Saturday
+        for (let h = 10; h <= 21; h++) {
+            let label = (h < 12 ? h + ' am' : (h === 12 ? '12 pm' : (h-12) + ' pm'));
+            let val = (h < 10 ? '0' : '') + h + ':00';
+            startTimes.push({val, label});
+        }
+        for (let h = 10; h <= 21; h++) {
+            let label = (h < 12 ? h + ' am' : (h === 12 ? '12 pm' : (h-12) + ' pm'));
+            let val = (h < 10 ? '0' : '') + h + ':00';
+            endTimes.push({val, label});
+        }
+    } else if (day >= 1 && day <= 5) { // Mon-Fri (Mon=1, Fri=5)
+        for (let h = 17; h <= 21; h++) {
+            let label = (h === 12 ? '12 pm' : (h > 12 ? (h-12) + ' pm' : h + ' am'));
+            let val = h + ':00';
+            startTimes.push({val, label});
+        }
+        for (let h = 17; h <= 21; h++) {
+            let label = (h === 12 ? '12 pm' : (h > 12 ? (h-12) + ' pm' : h + ' am'));
+            let val = h + ':00';
+            endTimes.push({val, label});
+        }
+    } else { // Sunday or no date
+        startTimes = [{val: '', label: 'Select a date first'}];
+        endTimes = [{val: '', label: 'Select a date first'}];
+    }
+    startSelect.innerHTML = startTimes.map(t => `<option value="${t.val}">${t.label}</option>`).join('');
+    endSelect.innerHTML = endTimes.map(t => `<option value="${t.val}">${t.label}</option>`).join('');
+}
+document.getElementById('event-date').addEventListener('change', setTimeOptions);
+window.addEventListener('DOMContentLoaded', setTimeOptions);
+</script>
 </section>
 </section>
 

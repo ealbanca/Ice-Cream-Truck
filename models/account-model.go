@@ -21,6 +21,29 @@ type User struct {
 }
 
 // Register a new user with hashed password
+// Check if a username already exists
+func UsernameExists(username string) (bool, error) {
+	var exists bool
+	query := "SELECT EXISTS(SELECT 1 FROM users WHERE username = $1)"
+	err := config.DB.QueryRow(query, username).Scan(&exists)
+	return exists, err
+}
+
+// Check if an email already exists
+func EmailExists(email string) (bool, error) {
+	var exists bool
+	query := "SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)"
+	err := config.DB.QueryRow(query, email).Scan(&exists)
+	return exists, err
+}
+
+// Check if a phone number already exists
+func PhoneExists(phone string) (bool, error) {
+	var exists bool
+	query := "SELECT EXISTS(SELECT 1 FROM users WHERE phone = $1)"
+	err := config.DB.QueryRow(query, phone).Scan(&exists)
+	return exists, err
+}
 func (u *User) Register() error {
 	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {

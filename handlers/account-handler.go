@@ -128,20 +128,29 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) error {
 			if password != confirmPassword {
 				message = "Passwords do not match."
 			} else {
-				user := &models.User{
-					Name:      name,
-					Lastname:  lastname,
-					Username:  username,
-					Email:     email,
-					Phone:     phone,
-					Password:  password, // In production, hash the password!
-					CreatedAt: time.Now(),
-				}
-				err := models.RegisterUser(user)
-				if err != nil {
-					message = "Registration failed: " + err.Error()
+				// Check for duplicate username, email, or phone
+				if exists, _ := models.UsernameExists(username); exists {
+					message = "Username already exists. Please choose another."
+				} else if exists, _ := models.EmailExists(email); exists {
+					message = "Email already exists. Please use another."
+				} else if exists, _ := models.PhoneExists(phone); exists {
+					message = "Phone number already exists. Please use another."
 				} else {
-					message = "Registration successful! Please log in."
+					user := &models.User{
+						Name:      name,
+						Lastname:  lastname,
+						Username:  username,
+						Email:     email,
+						Phone:     phone,
+						Password:  password, // In production, hash the password!
+						CreatedAt: time.Now(),
+					}
+					err := models.RegisterUser(user)
+					if err != nil {
+						message = "Registration failed: " + err.Error()
+					} else {
+						message = "Registration successful! Please log in."
+					}
 				}
 			}
 		}

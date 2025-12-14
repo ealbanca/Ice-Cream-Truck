@@ -7,7 +7,9 @@ if (eventForm) {
             name: document.getElementById('event-name').value,
             email: document.getElementById('event-email').value,
             phone: document.getElementById('event-phone').value,
-            date: document.getElementById('event-date').value + 'T' + document.getElementById('event-time').value,
+            date: document.getElementById('event-date').value,
+            start_time: document.getElementById('event-start-time').value,
+            end_time: document.getElementById('event-end-time').value,
             description: document.getElementById('event-description').value
         };
         const res = await fetch('/api/events', {

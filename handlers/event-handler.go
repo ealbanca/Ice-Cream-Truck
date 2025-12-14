@@ -19,21 +19,25 @@ func EventHandler(w http.ResponseWriter, r *http.Request) error {
 			Email       string    `json:"email"`
 			Phone       string    `json:"phone"`
 			Date        string    `json:"date"`
+			StartTime   string    `json:"start_time"`
+			EndTime     string    `json:"end_time"`
 			Description string    `json:"description"`
 			CreatedAt   time.Time `json:"created_at"`
 		}
 		if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 			return fmt.Errorf("invalid input: %w", err)
 		}
-		eventTime, err := time.Parse("2006-01-02T15:04", input.Date)
+		eventDate, err := time.Parse("2006-01-02", input.Date)
 		if err != nil {
-			return fmt.Errorf("invalid date/time format: %w", err)
+			return fmt.Errorf("invalid date format: %w", err)
 		}
 		event := models.Event{
 			Name:        input.Name,
 			Email:       input.Email,
 			Phone:       input.Phone,
-			Date:        eventTime,
+			Date:        eventDate,
+			StartTime:   input.StartTime,
+			EndTime:     input.EndTime,
 			Description: input.Description,
 		}
 		if err := event.Create(); err != nil {
